@@ -1,0 +1,8 @@
+.env
+venv/
+__pycache__/
+*.pyc
+
+test_gemini.py
+test_maps.py
+test_ors.py
