@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PRAYAN - Drivers</title>
+</head>
+
+<body>
+
+    <h1>Available Drivers</h1>
+
+    <p>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+    </p>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if drivers %}
+
+        {% for driver in drivers %}
+
+            <div>
+
+                <h2>{{ driver.name }}</h2>
+
+                <p>
+                    <strong>Experience:</strong>
+                    {{ driver.experience }} years
+                </p>
+
+                <p>
+                    <strong>Phone:</strong>
+                    {{ driver.phone }}
+                </p>
+
+                <p>
+                    <strong>Price per day:</strong>
+                    ₹{{ driver.price_per_day }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ driver.availability_status }}
+                </p>
+
+                <hr>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No drivers available.</p>
+
+    {% endif %}
+
+</body>
+
+</html>

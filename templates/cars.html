@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PRAYAN - Cars</title>
+</head>
+
+<body>
+
+    <h1>Available Cars</h1>
+
+    <p>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+    </p>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% if cars %}
+
+        {% for car in cars %}
+
+            <div>
+
+                <h2>{{ car.car_model }}</h2>
+
+                <p>
+                    <strong>Car Number:</strong>
+                    {{ car.car_number }}
+                </p>
+
+                <p>
+                    <strong>Type:</strong>
+                    {{ car.car_type }}
+                </p>
+
+                <p>
+                    <strong>Seats:</strong>
+                    {{ car.seats }}
+                </p>
+
+                <p>
+                    <strong>Price per day:</strong>
+                    ₹{{ car.price_per_day }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ car.availability_status }}
+                </p>
+
+                <hr>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No cars available.</p>
+
+    {% endif %}
+
+</body>
+
+</html>

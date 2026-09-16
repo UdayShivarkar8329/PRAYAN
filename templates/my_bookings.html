@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PRAYAN - My Bookings</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .booking {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .booking p {
+            margin: 8px 0;
+        }
+
+        .flash {
+            padding: 10px;
+            margin-bottom: 15px;
+            background: #f0f0f0;
+        }
+
+        .cancel {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            text-decoration: none;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>My Bookings</h1>
+
+    <p>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a> |
+        <a href="{{ url_for('booking') }}">New Booking</a>
+    </p>
+
+
+    <!-- Flash Messages -->
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="flash">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- Bookings -->
+
+    {% if bookings %}
+
+        {% for booking in bookings %}
+
+            <div class="booking">
+
+                <h3>
+                    Booking #{{ booking.booking_id }}
+                </h3>
+
+                <p>
+                    <strong>Pickup:</strong>
+                    {{ booking.pickup_location }}
+                </p>
+
+                <p>
+                    <strong>Destination:</strong>
+                    {{ booking.destination }}
+                </p>
+
+                <p>
+                    <strong>Service:</strong>
+                    {{ booking.service_type }}
+                </p>
+
+                <p>
+                    <strong>Start Date:</strong>
+                    {{ booking.start_date }}
+                </p>
+
+                <p>
+                    <strong>End Date:</strong>
+                    {{ booking.end_date }}
+                </p>
+
+
+                {% if booking.car_model %}
+
+                    <p>
+                        <strong>Car:</strong>
+                        {{ booking.car_model }}
+                        ({{ booking.car_number }})
+                    </p>
+
+                {% endif %}
+
+
+                {% if booking.driver_name %}
+
+                    <p>
+                        <strong>Driver:</strong>
+                        {{ booking.driver_name }}
+                    </p>
+
+                {% endif %}
+
+
+                <p>
+                    <strong>Total Price:</strong>
+                    ₹{{ booking.total_price }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ booking.booking_status }}
+                </p>
+
+
+                {% if booking.booking_status == "confirmed" %}
+
+                    <a
+                        class="cancel"
+                        href="{{ url_for('cancel_booking', booking_id=booking.booking_id) }}"
+                        onclick="return confirm('Are you sure you want to cancel this booking?');"
+                    >
+                        Cancel Booking
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+
+            <p>
+                You don't have any bookings yet.
+            </p>
+
+            <a href="{{ url_for('booking') }}">
+                Create Your First Booking
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

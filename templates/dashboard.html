@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PRAYAN - Dashboard</title>
+</head>
+
+<body>
+
+    <h1>PRAYAN Dashboard</h1>
+
+    <h2>Welcome, {{ user_name }}!</h2>
+
+    <p>You are successfully logged in.</p>
+
+    <hr>
+
+    <p>
+        <a href="{{ url_for('booking') }}">
+            Book a Service
+        </a>
+    </p>
+    <p>
+        <a href="{{ url_for('cars') }}">
+            View Cars
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ url_for('drivers') }}">
+            View Drivers
+        </a>
+    </p>
+    <p>
+        <a href="{{ url_for('logout') }}">
+            Logout
+        </a>
+    </p>
+
+</body>
+
+</html>

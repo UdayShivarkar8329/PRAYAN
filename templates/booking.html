@@ -1,110 +1,382 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>PRAYAN - Booking</title>
+    <title>PRAYAN - Create Booking</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 30px;
-            background: #f5f5f5;
+            margin: 40px;
         }
 
-        .booking-box {
-            max-width: 600px;
+        .container {
+            max-width: 700px;
             margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
         }
 
         h1 {
-            margin-bottom: 25px;
+            text-align: center;
         }
 
-        .journey {
-            background: #f0f0f0;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
+        .form-group {
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             font-weight: bold;
         }
 
-        select,
-        input {
+        input,
+        select {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             box-sizing: border-box;
-            font-size: 16px;
         }
 
         button {
-            margin-top: 25px;
             padding: 12px 25px;
-            font-size: 16px;
             cursor: pointer;
+        }
+
+        .flash {
+            padding: 10px;
+            margin-bottom: 15px;
+            background: #f0f0f0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .price-note {
+            margin-top: 10px;
+            font-size: 14px;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="booking-box">
+<div class="container">
 
-        <h1>PRAYAN Booking</h1>
+    <h1>Create Booking</h1>
 
-        <div class="journey">
-            <p>
-                <strong>Pickup:</strong> Amravati
-            </p>
+    <p>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a> |
+        <a href="{{ url_for('my_bookings') }}">My Bookings</a>
+    </p>
 
-            <p>
-                <strong>Destination:</strong> {{ destination }}
-            </p>
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="flash">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+
+    <form method="POST" action="{{ url_for('booking') }}">
+
+        <!-- Pickup -->
+        <div class="form-group">
+
+            <label>Pickup Location</label>
+
+            <input
+                type="text"
+                value="Amravati"
+                readonly
+            >
+
         </div>
 
-        <h2>Select Service</h2>
 
-        <label for="service">Service Type</label>
+        <!-- Destination -->
+        <div class="form-group">
 
-        <select id="service">
-            <option value="car">Car Only</option>
-            <option value="driver">Driver Only</option>
-            <option value="car_driver">Car + Driver</option>
-        </select>
+            <label for="destination">
+                Destination
+            </label>
 
-        <label for="date">Travel Date</label>
+            <input
+                type="text"
+                id="destination"
+                name="destination"
+                value="{{ destination }}"
+                placeholder="Enter Maharashtra destination"
+                required
+            >
 
-        <input type="date" id="date">
+        </div>
 
-        <button onclick="confirmBooking()">
+
+        <!-- Service Type -->
+        <div class="form-group">
+
+            <label for="service_type">
+                Service Type
+            </label>
+
+            <select
+                id="service_type"
+                name="service_type"
+                required
+            >
+
+                <option value="">
+                    Select Service
+                </option>
+
+                <option value="Car Only">
+                    Car Only
+                </option>
+
+                <option value="Driver Only">
+                    Driver Only
+                </option>
+
+                <option value="Car + Driver">
+                    Car + Driver
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- Car -->
+        <div
+            class="form-group"
+            id="car-section"
+        >
+
+            <label for="car_id">
+                Select Car
+            </label>
+
+            <select
+                id="car_id"
+                name="car_id"
+            >
+
+                <option value="">
+                    Select Car
+                </option>
+
+                {% for car in cars %}
+
+                    <option value="{{ car.car_id }}">
+
+                        {{ car.car_model }}
+                        -
+                        {{ car.car_number }}
+                        -
+                        ₹{{ car.price_per_day }}/day
+
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+        <!-- Driver -->
+        <div
+            class="form-group"
+            id="driver-section"
+        >
+
+            <label for="driver_id">
+                Select Driver
+            </label>
+
+            <select
+                id="driver_id"
+                name="driver_id"
+            >
+
+                <option value="">
+                    Select Driver
+                </option>
+
+                {% for driver in drivers %}
+
+                    <option value="{{ driver.driver_id }}">
+
+                        {{ driver.name }}
+                        -
+                        {{ driver.experience }} years experience
+                        -
+                        ₹{{ driver.price_per_day }}/day
+
+                    </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+        <!-- Start Date -->
+        <div class="form-group">
+
+            <label for="start_date">
+                Start Date
+            </label>
+
+            <input
+                type="date"
+                id="start_date"
+                name="start_date"
+                required
+            >
+
+        </div>
+
+
+        <!-- End Date -->
+        <div class="form-group">
+
+            <label for="end_date">
+                End Date
+            </label>
+
+            <input
+                type="date"
+                id="end_date"
+                name="end_date"
+                required
+            >
+
+        </div>
+
+
+        <button type="submit">
             Confirm Booking
         </button>
 
-    </div>
+    </form>
+
+</div>
 
 
-    <script>
+<script>
 
-        function confirmBooking() {
+    const serviceType =
+        document.getElementById("service_type");
 
-            alert("Booking details submitted!");
+    const carSection =
+        document.getElementById("car-section");
+
+    const driverSection =
+        document.getElementById("driver-section");
+
+    const carSelect =
+        document.getElementById("car_id");
+
+    const driverSelect =
+        document.getElementById("driver_id");
+
+
+    function updateServiceFields() {
+
+        const service =
+            serviceType.value;
+
+
+        // Car Only
+        if (service === "Car Only") {
+
+            carSection.style.display = "block";
+            driverSection.style.display = "none";
+
+            carSelect.required = true;
+            driverSelect.required = false;
+
+            driverSelect.value = "";
 
         }
 
-    </script>
+
+        // Driver Only
+        else if (service === "Driver Only") {
+
+            carSection.style.display = "none";
+            driverSection.style.display = "block";
+
+            carSelect.required = false;
+            driverSelect.required = true;
+
+            carSelect.value = "";
+
+        }
+
+
+        // Car + Driver
+        else if (service === "Car + Driver") {
+
+            carSection.style.display = "block";
+            driverSection.style.display = "block";
+
+            carSelect.required = true;
+            driverSelect.required = true;
+
+        }
+
+
+        // No service selected
+        else {
+
+            carSection.style.display = "none";
+            driverSection.style.display = "none";
+
+            carSelect.required = false;
+            driverSelect.required = false;
+
+            carSelect.value = "";
+            driverSelect.value = "";
+
+        }
+
+    }
+
+
+    serviceType.addEventListener(
+        "change",
+        updateServiceFields
+    );
+
+
+    // Initial state
+    updateServiceFields();
+
+
+    // Prevent end date before start date
+    const startDate =
+        document.getElementById("start_date");
+
+    const endDate =
+        document.getElementById("end_date");
+
+
+    startDate.addEventListener(
+        "change",
+        function () {
+
+            endDate.min = startDate.value;
+
+        }
+    );
+
+</script>
 
 </body>
-
 </html>
