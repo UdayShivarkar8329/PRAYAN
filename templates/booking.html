@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PRAYAN - Booking</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            background: #f5f5f5;
+        }
+
+        .booking-box {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+
+        .journey {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="booking-box">
+
+        <h1>PRAYAN Booking</h1>
+
+        <div class="journey">
+            <p>
+                <strong>Pickup:</strong> Amravati
+            </p>
+
+            <p>
+                <strong>Destination:</strong> {{ destination }}
+            </p>
+        </div>
+
+        <h2>Select Service</h2>
+
+        <label for="service">Service Type</label>
+
+        <select id="service">
+            <option value="car">Car Only</option>
+            <option value="driver">Driver Only</option>
+            <option value="car_driver">Car + Driver</option>
+        </select>
+
+        <label for="date">Travel Date</label>
+
+        <input type="date" id="date">
+
+        <button onclick="confirmBooking()">
+            Confirm Booking
+        </button>
+
+    </div>
+
+
+    <script>
+
+        function confirmBooking() {
+
+            alert("Booking details submitted!");
+
+        }
+
+    </script>
+
+</body>
+
+</html>
