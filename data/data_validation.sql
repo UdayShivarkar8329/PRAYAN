@@ -142,3 +142,28 @@ FROM bookings b
 JOIN users u ON b.user_id = u.user_id
 LEFT JOIN cars c ON b.car_id = c.car_id
 LEFT JOIN drivers d ON b.driver_id = d.driver_id;
+-- Check bookings with invalid driver references
+SELECT b.*
+FROM bookings b
+LEFT JOIN drivers d ON b.driver_id = d.driver_id
+WHERE b.driver_id IS NOT NULL
+  AND d.driver_id IS NULL;
+
+
+-- =========================================================
+-- PRAYAN Member 11 - Validation Results
+-- Date: 2026-09-17
+-- =========================================================
+
+-- Record counts
+SELECT COUNT(*) AS user_count FROM users;
+SELECT COUNT(*) AS car_count FROM cars;
+SELECT COUNT(*) AS driver_count FROM drivers;
+SELECT COUNT(*) AS booking_count FROM bookings;
+
+-- Service type distribution
+SELECT service_type, COUNT(*) AS booking_count
+FROM bookings
+GROUP BY service_type;
+
+...
