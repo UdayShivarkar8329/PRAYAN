@@ -1,22 +1,355 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>PRAYAN - Create Booking</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PRAYAN | Book Your Journey</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
     <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
+            font-family: "Inter", sans-serif;
+            background: #f4f7fb;
+            color: #172033;
         }
 
-        .container {
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 76px;
+
+            background: rgba(255, 255, 255, 0.97);
+
+            border-bottom: 1px solid #e7ebf2;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #596273;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        .login-btn {
+            background: #172033;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 10px;
+        }
+
+        .login-btn:hover {
+            background: #4f46e5;
+        }
+
+
+        /* =========================
+           PAGE HEADER
+        ========================= */
+
+        .page-header {
+            padding: 55px 7% 35px;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(79, 70, 229, 0.10),
+                    transparent 35%
+                ),
+                #f7f9ff;
+        }
+
+        .page-header .badge {
+            display: inline-block;
+
+            padding: 7px 13px;
+
+            background: #e7e9ff;
+
+            color: #4f46e5;
+
+            border-radius: 30px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.5px;
+
+            margin-bottom: 15px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(32px, 4vw, 48px);
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #667085;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+
             max-width: 700px;
-            margin: auto;
         }
 
-        h1 {
-            text-align: center;
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main-container {
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            padding: 30px 7% 80px;
         }
+
+
+        /* =========================
+           FLASH
+        ========================= */
+
+        .flash {
+            background: #fff4e5;
+
+            border: 1px solid #ffd59a;
+
+            color: #8a5200;
+
+            padding: 14px 16px;
+
+            border-radius: 12px;
+
+            margin-bottom: 20px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           LOGIN NOTICE
+        ========================= */
+
+        .login-notice {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            background: #eef2ff;
+
+            border: 1px solid #dfe3ff;
+
+            padding: 15px 18px;
+
+            border-radius: 14px;
+
+            margin-bottom: 22px;
+        }
+
+        .login-notice-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background: white;
+
+            border-radius: 10px;
+
+            font-size: 18px;
+
+            flex-shrink: 0;
+        }
+
+        .login-notice-text {
+            font-size: 12px;
+
+            color: #596273;
+
+            line-height: 1.5;
+        }
+
+        .login-notice-text strong {
+            color: #172033;
+        }
+
+
+        /* =========================
+           BOOKING GRID
+        ========================= */
+
+        .booking-grid {
+            display: grid;
+
+            grid-template-columns: 1.45fr 0.75fr;
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+
+        /* =========================
+           CARD
+        ========================= */
+
+        .card {
+            background: white;
+
+            border: 1px solid #e7ebf2;
+
+            border-radius: 20px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 12px 35px rgba(31, 41, 55, 0.07);
+        }
+
+        .card + .card {
+            margin-top: 20px;
+        }
+
+        .card-header {
+            margin-bottom: 24px;
+        }
+
+        .card-header h2 {
+            font-size: 19px;
+
+            margin-bottom: 6px;
+        }
+
+        .card-header p {
+            color: #8a93a3;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           LOCATION
+        ========================= */
+
+        .location-route {
+            display: grid;
+
+            grid-template-columns: 28px 1fr;
+
+            column-gap: 15px;
+        }
+
+        .location-line {
+            position: relative;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+        }
+
+        .location-dot {
+            width: 13px;
+            height: 13px;
+
+            border-radius: 50%;
+
+            background: #4f46e5;
+
+            border: 3px solid #e5e7ff;
+
+            z-index: 2;
+        }
+
+        .location-dot.destination {
+            background: #172033;
+
+            border-color: #e5e7eb;
+        }
+
+        .vertical-line {
+            width: 2px;
+
+            height: 55px;
+
+            background: #dce1ea;
+        }
+
+        .location-fields {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 18px;
+        }
+
+
+        /* =========================
+           FORM
+        ========================= */
 
         .form-group {
             margin-bottom: 20px;
@@ -24,360 +357,1771 @@
 
         label {
             display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
+
+            margin-bottom: 8px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: #667085;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.4px;
         }
 
         input,
         select {
             width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
+
+            padding: 14px 15px;
+
+            border: 1px solid #dce1ea;
+
+            border-radius: 11px;
+
+            background: #fafbfc;
+
+            color: #172033;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: 0.2s;
         }
 
-        button {
-            padding: 12px 25px;
+        input:focus,
+        select:focus {
+            border-color: #6366f1;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px rgba(99, 102, 241, 0.10);
+        }
+
+        input::placeholder {
+            color: #a3aab7;
+        }
+
+
+        /* =========================
+           SERVICE
+        ========================= */
+
+        .service-options {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 12px;
+        }
+
+        .service-option {
+            position: relative;
+        }
+
+        .service-option input {
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+        .service-label {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            min-height: 120px;
+
+            padding: 15px;
+
+            border: 1px solid #e0e4ec;
+
+            border-radius: 15px;
+
             cursor: pointer;
+
+            transition: 0.2s;
+
+            background: #fafbfc;
         }
 
-        .flash {
-            padding: 10px;
-            margin-bottom: 15px;
-            background: #f0f0f0;
+        .service-label:hover {
+            border-color: #a8adff;
+
+            transform: translateY(-2px);
         }
 
-        .hidden {
+        .service-option input:checked + .service-label {
+            border-color: #4f46e5;
+
+            background: #f2f1ff;
+
+            box-shadow:
+                0 0 0 3px rgba(79, 70, 229, 0.08);
+        }
+
+        .service-icon {
+            font-size: 27px;
+
+            margin-bottom: 9px;
+        }
+
+        .service-name {
+            font-size: 13px;
+
+            font-weight: 700;
+
+            color: #172033;
+
+            margin-bottom: 5px;
+        }
+
+        .service-description {
+            font-size: 10px;
+
+            color: #8a93a3;
+
+            line-height: 1.4;
+        }
+
+
+        /* =========================
+           CAR / DRIVER
+        ========================= */
+
+        .selection-section {
+            padding-top: 5px;
+        }
+
+        .selection-section.hidden {
             display: none;
         }
 
-        .price-note {
-            margin-top: 10px;
+        .selection-title {
             font-size: 14px;
+
+            font-weight: 700;
+
+            margin-bottom: 9px;
         }
+
+        .selected-info {
+            display: none;
+
+            margin-top: 10px;
+
+            padding: 10px 12px;
+
+            background: #f0fdf4;
+
+            border: 1px solid #d1fadf;
+
+            border-radius: 10px;
+
+            color: #166534;
+
+            font-size: 11px;
+        }
+
+        .selected-info.show {
+            display: block;
+        }
+
+
+        /* =========================
+           DATES
+        ========================= */
+
+        .date-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 15px;
+        }
+
+
+        /* =========================
+           SUMMARY
+        ========================= */
+
+        .summary-card {
+            position: sticky;
+
+            top: 100px;
+        }
+
+        .summary-title {
+            font-size: 19px;
+
+            font-weight: 700;
+
+            margin-bottom: 20px;
+        }
+
+        .summary-route {
+            background: #f7f8ff;
+
+            border: 1px solid #e6e7ff;
+
+            padding: 17px;
+
+            border-radius: 14px;
+
+            margin-bottom: 20px;
+        }
+
+        .summary-location {
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+        .summary-location + .summary-location {
+            margin-top: 12px;
+        }
+
+        .summary-arrow {
+            margin-left: 4px;
+
+            color: #a1a7b4;
+
+            font-size: 12px;
+        }
+
+        .summary-item {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 12px 0;
+
+            border-bottom: 1px solid #edf0f5;
+
+            font-size: 13px;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-item span:first-child {
+            color: #8a93a3;
+        }
+
+        .summary-item span:last-child {
+            text-align: right;
+
+            font-weight: 600;
+
+            max-width: 65%;
+        }
+
+
+        /* =========================
+           PRICE
+        ========================= */
+
+        .estimated-price {
+            margin-top: 18px;
+
+            padding: 18px;
+
+            background: #172033;
+
+            border-radius: 15px;
+
+            color: white;
+        }
+
+        .estimated-price-label {
+            font-size: 11px;
+
+            color: #b9c0cf;
+
+            margin-bottom: 5px;
+        }
+
+        .estimated-price-value {
+            font-size: 27px;
+
+            font-weight: 800;
+        }
+
+        .estimated-price-value span {
+            font-size: 11px;
+
+            color: #aeb6c5;
+
+            font-weight: 500;
+        }
+
+
+        /* =========================
+           SECURITY
+        ========================= */
+
+        .security-note {
+            margin-top: 20px;
+
+            padding: 14px;
+
+            background: #f8fafc;
+
+            border-radius: 12px;
+
+            color: #667085;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================= */
+
+        .confirm-button {
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #4f46e5;
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        .confirm-button:hover {
+            background: #4338ca;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 10px 20px rgba(79, 70, 229, 0.22);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #111827;
+
+            color: #9ca3af;
+
+            text-align: center;
+
+            padding: 28px;
+
+            font-size: 12px;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .booking-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-card {
+                position: static;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 0 5%;
+            }
+
+            .nav-links a:not(.login-btn) {
+                display: none;
+            }
+
+            .page-header {
+                padding: 40px 5% 25px;
+            }
+
+            .main-container {
+                padding: 25px 5% 60px;
+            }
+
+            .card {
+                padding: 21px;
+            }
+
+            .service-options {
+                grid-template-columns: 1fr;
+            }
+
+            .service-label {
+                min-height: 90px;
+
+                flex-direction: row;
+
+                gap: 12px;
+
+                text-align: left;
+
+                justify-content: flex-start;
+            }
+
+            .service-icon {
+                margin-bottom: 0;
+            }
+
+            .date-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-<div class="container">
 
-    <h1>Create Booking</h1>
+    <!-- =========================
+         NAVBAR
+    ========================= -->
 
-    <p>
-        <a href="{{ url_for('dashboard') }}">Dashboard</a> |
-        <a href="{{ url_for('my_bookings') }}">My Bookings</a>
-    </p>
+    <nav class="navbar">
 
-    <!-- Flash Messages -->
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="flash">
-                    {{ message }}
+        <div class="logo">
+            PRA<span>YAN</span>
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/cars">
+                Cars
+            </a>
+
+            <a href="/drivers">
+                Drivers
+            </a>
+
+            <a href="/my-bookings">
+                My Bookings
+            </a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="/login" class="login-btn">
+                Login
+            </a>
+            
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         PAGE HEADER
+    ========================= -->
+
+    <section class="page-header">
+
+        <div class="badge">
+            PRAYAN BOOKING
+        </div>
+
+        <h1>
+            Plan your journey.
+        </h1>
+
+        <p>
+            Choose your service, select your vehicle or driver,
+            and set your travel dates.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="main-container">
+
+
+        <!-- =========================
+             FLASH MESSAGES
+        ========================= -->
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="flash">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- =========================
+             LOGIN NOTICE
+        ========================= -->
+
+        <div class="login-notice">
+
+            <div class="login-notice-icon">
+                🔐
+            </div>
+
+            <div class="login-notice-text">
+
+                <strong>Planning without an account?</strong>
+
+                You can fill in your journey details and review
+                your booking here. Login will only be required
+                when you confirm the booking.
+
+            </div>
+
+        </div>
+
+
+        <div class="booking-grid">
+
+
+            <!-- =========================
+                 LEFT SIDE
+            ========================= -->
+
+            <div>
+
+
+                <!-- =========================
+                     LOCATION CARD
+                ========================= -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Where are you going?
+                        </h2>
+
+                        <p>
+                            Enter your pickup and destination.
+                        </p>
+
+                    </div>
+
+
+                    <div class="location-route">
+
+
+                        <div class="location-line">
+
+                            <div class="location-dot"></div>
+
+                            <div class="vertical-line"></div>
+
+                            <div class="location-dot destination"></div>
+
+                        </div>
+
+
+                        <div class="location-fields">
+
+
+                            <div>
+
+                                <label for="pickup_location">
+                                    Pickup Location
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="pickup_location"
+                                    name="pickup_location"
+                                    value="{{ request.args.get('pickup_location', '') }}"
+                                    placeholder="e.g. Amravati"
+                                    form="booking-form"
+                                    required
+                                >
+
+                            </div>
+
+
+                            <div>
+
+                                <label for="destination">
+                                    Destination
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="destination"
+                                    name="destination"
+                                    value="{{ destination or request.args.get('destination', '') }}"
+                                    placeholder="e.g. Nagpur"
+                                    form="booking-form"
+                                    required
+                                >
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
                 </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
 
 
-    <form method="POST" action="{{ url_for('booking') }}">
+                <!-- =========================
+                     SERVICE CARD
+                ========================= -->
 
-        <!-- Pickup -->
-        <div class="form-group">
+                <div class="card">
 
-            <label for="pickup_location">Pickup Location</label>
-<input
-    type="text"
-    id="pickup_location"
-    name="pickup_location"
-    placeholder="Enter pickup location"
-    required
->
+                    <div class="card-header">
+
+                        <h2>
+                            Choose your service
+                        </h2>
+
+                        <p>
+                            Select the option that suits your journey.
+                        </p>
+
+                    </div>
+
+
+                    <div class="service-options">
+
+
+                        <!-- CAR ONLY -->
+
+                        <div class="service-option">
+
+                            <input
+                                type="radio"
+                                id="car-only"
+                                name="service_type"
+                                value="Car Only"
+                                form="booking-form"
+                                required
+                            >
+
+                            <label
+                                for="car-only"
+                                class="service-label"
+                            >
+
+                                <div class="service-icon">
+                                    🚗
+                                </div>
+
+                                <div>
+
+                                    <div class="service-name">
+                                        Car Only
+                                    </div>
+
+                                    <div class="service-description">
+                                        Rent a car for your journey.
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- DRIVER ONLY -->
+
+                        <div class="service-option">
+
+                            <input
+                                type="radio"
+                                id="driver-only"
+                                name="service_type"
+                                value="Driver Only"
+                                form="booking-form"
+                            >
+
+                            <label
+                                for="driver-only"
+                                class="service-label"
+                            >
+
+                                <div class="service-icon">
+                                    👨‍✈️
+                                </div>
+
+                                <div>
+
+                                    <div class="service-name">
+                                        Driver Only
+                                    </div>
+
+                                    <div class="service-description">
+                                        Hire a driver for your journey.
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- CAR + DRIVER -->
+
+                        <div class="service-option">
+
+                            <input
+                                type="radio"
+                                id="car-driver"
+                                name="service_type"
+                                value="Car + Driver"
+                                form="booking-form"
+                            >
+
+                            <label
+                                for="car-driver"
+                                class="service-label"
+                            >
+
+                                <div class="service-icon">
+                                    🚗+
+                                </div>
+
+                                <div>
+
+                                    <div class="service-name">
+                                        Car + Driver
+                                    </div>
+
+                                    <div class="service-description">
+                                        Complete travel solution.
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     VEHICLE CARD
+                ========================= -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Select your ride
+                        </h2>
+
+                        <p>
+                            Available options are shown below.
+                        </p>
+
+                    </div>
+
+
+                    <!-- =========================
+                         CAR
+                    ========================= -->
+
+                    <div
+                        id="car-section"
+                        class="selection-section"
+                    >
+
+                        <div class="form-group">
+
+                            <label for="car_id">
+                                Select Car
+                            </label>
+
+                            <select
+                                id="car_id"
+                                name="car_id"
+                                form="booking-form"
+                            >
+
+                                <option value="">
+                                    Select a car
+                                </option>
+
+                                {% for car in cars %}
+
+                                    <option
+                                        value="{{ car.car_id }}"
+                                        {% if selected_car_id|string == car.car_id|string %}
+                                            selected
+                                        {% endif %}
+                                    >
+
+                                        {{ car.car_model }}
+                                        -
+                                        {{ car.car_number }}
+                                        -
+                                        ₹{{ car.price_per_day }}/day
+
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                            <div
+                                id="car-selected-info"
+                                class="selected-info"
+                            >
+                                ✓ Selected car is ready for booking.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================
+                         DRIVER
+                    ========================= -->
+
+                    <div
+                        id="driver-section"
+                        class="selection-section"
+                    >
+
+                        <div class="form-group">
+
+                            <label for="driver_id">
+                                Select Driver
+                            </label>
+
+                            <select
+                                id="driver_id"
+                                name="driver_id"
+                                form="booking-form"
+                            >
+
+                                <option value="">
+                                    Select a driver
+                                </option>
+
+                                {% for driver in drivers %}
+
+                                    <option value="{{ driver.driver_id }}">
+
+                                        {{ driver.name }}
+                                        -
+                                        {{ driver.experience }} years experience
+                                        -
+                                        ₹{{ driver.price_per_day }}/day
+
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================
+                         DATES
+                    ========================= -->
+
+                    <div class="date-grid">
+
+                        <div class="form-group">
+
+                            <label for="start_date">
+                                Start Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="start_date"
+                                name="start_date"
+                                form="booking-form"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="end_date">
+                                End Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="end_date"
+                                name="end_date"
+                                form="booking-form"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =========================
+                 RIGHT SIDE
+            ========================= -->
+
+            <aside>
+
+
+                <div class="card summary-card">
+
+
+                    <div class="summary-title">
+                        Booking Summary
+                    </div>
+
+
+                    <!-- ROUTE -->
+
+                    <div class="summary-route">
+
+                        <div class="summary-location">
+
+                            <span>📍</span>
+
+                            <span id="summary-pickup">
+                                {{ request.args.get('pickup_location', 'Pickup location') }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="summary-arrow">
+                            ↓
+                        </div>
+
+
+                        <div class="summary-location">
+
+                            <span>📍</span>
+
+                            <span id="summary-destination">
+                                {{ destination or request.args.get('destination', 'Destination') }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SERVICE -->
+
+                    <div class="summary-item">
+
+                        <span>
+                            Service
+                        </span>
+
+                        <span id="summary-service">
+                            Not selected
+                        </span>
+
+                    </div>
+
+
+                    <!-- DATES -->
+
+                    <div class="summary-item">
+
+                        <span>
+                            Dates
+                        </span>
+
+                        <span id="summary-dates">
+                            Not selected
+                        </span>
+
+                    </div>
+
+
+                    <!-- OPTION -->
+
+                    <div class="summary-item">
+
+                        <span>
+                            Vehicle / Driver
+                        </span>
+
+                        <span id="summary-option">
+                            Not selected
+                        </span>
+
+                    </div>
+
+
+                    <!-- ESTIMATED PRICE -->
+
+                    <div class="estimated-price">
+
+                        <div class="estimated-price-label">
+                            Estimated total
+                        </div>
+
+                        <div
+                            class="estimated-price-value"
+                            id="summary-price"
+                        >
+                            ₹0
+                            <span>
+                                estimated
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- SECURITY -->
+
+                    <div class="security-note">
+
+                        🔐 Your booking will only be confirmed
+                        after you log in and submit the booking.
+
+                    </div>
+
+
+                    <!-- =========================
+                         ACTUAL FORM
+                    ========================= -->
+
+                    <form
+                        id="booking-form"
+                        method="POST"
+                        action="{{ url_for('booking') }}"
+                    >
+
+                    </form>
+
+
+                    <button
+                        type="submit"
+                        form="booking-form"
+                        class="confirm-button"
+                    >
+                        Continue to Confirmation →
+                    </button>
+
+
+                </div>
+
+
+            </aside>
+
 
         </div>
 
 
-        <!-- Destination -->
-        <div class="form-group">
+    </main>
 
-            <label for="destination">
-                Destination
-            </label>
 
-            <input
-                type="text"
-                id="destination"
-                name="destination"
-                value="{{ destination }}"
-                placeholder="Enter Maharashtra destination"
-                required
-            >
+    <!-- =========================
+         FOOTER
+    ========================= -->
 
-        </div>
+    <footer>
 
+        <strong>PRAYAN</strong>
+        — Smart Car & Driver Rental Platform
 
-        <!-- Service Type -->
-        <div class="form-group">
+    </footer>
 
-            <label for="service_type">
-                Service Type
-            </label>
 
-            <select
-                id="service_type"
-                name="service_type"
-                required
-            >
+    <script>
 
-                <option value="">
-                    Select Service
-                </option>
 
-                <option value="Car Only">
-                    Car Only
-                </option>
+        /* =========================
+           ELEMENTS
+        ========================= */
 
-                <option value="Driver Only">
-                    Driver Only
-                </option>
+        const serviceTypeInputs =
+            document.querySelectorAll(
+                'input[name="service_type"]'
+            );
 
-                <option value="Car + Driver">
-                    Car + Driver
-                </option>
 
-            </select>
+        const carSection =
+            document.getElementById(
+                "car-section"
+            );
 
-        </div>
 
+        const driverSection =
+            document.getElementById(
+                "driver-section"
+            );
 
-        <!-- Car -->
-        <div
-            class="form-group"
-            id="car-section"
-        >
 
-            <label for="car_id">
-                Select Car
-            </label>
+        const carSelect =
+            document.getElementById(
+                "car_id"
+            );
 
-            <select
-                id="car_id"
-                name="car_id"
-            >
 
-                <option value="">
-                    Select Car
-                </option>
+        const driverSelect =
+            document.getElementById(
+                "driver_id"
+            );
 
-                {% for car in cars %}
 
-                    <option value="{{ car.car_id }}">
+        const pickupInput =
+            document.getElementById(
+                "pickup_location"
+            );
 
-                        {{ car.car_model }}
-                        -
-                        {{ car.car_number }}
-                        -
-                        ₹{{ car.price_per_day }}/day
 
-                    </option>
+        const destinationInput =
+            document.getElementById(
+                "destination"
+            );
 
-                {% endfor %}
 
-            </select>
+        const startDate =
+            document.getElementById(
+                "start_date"
+            );
 
-        </div>
 
+        const endDate =
+            document.getElementById(
+                "end_date"
+            );
 
-        <!-- Driver -->
-        <div
-            class="form-group"
-            id="driver-section"
-        >
 
-            <label for="driver_id">
-                Select Driver
-            </label>
+        const carSelectedInfo =
+            document.getElementById(
+                "car-selected-info"
+            );
 
-            <select
-                id="driver_id"
-                name="driver_id"
-            >
 
-                <option value="">
-                    Select Driver
-                </option>
+        /* =========================
+           SERVICE
+        ========================= */
 
-                {% for driver in drivers %}
+        function getSelectedService() {
 
-                    <option value="{{ driver.driver_id }}">
+            let service = "";
 
-                        {{ driver.name }}
-                        -
-                        {{ driver.experience }} years experience
-                        -
-                        ₹{{ driver.price_per_day }}/day
+            serviceTypeInputs.forEach(
+                function(input) {
 
-                    </option>
+                    if (input.checked) {
+                        service = input.value;
+                    }
 
-                {% endfor %}
+                }
+            );
 
-            </select>
-
-        </div>
-
-
-        <!-- Start Date -->
-        <div class="form-group">
-
-            <label for="start_date">
-                Start Date
-            </label>
-
-            <input
-                type="date"
-                id="start_date"
-                name="start_date"
-                required
-            >
-
-        </div>
-
-
-        <!-- End Date -->
-        <div class="form-group">
-
-            <label for="end_date">
-                End Date
-            </label>
-
-            <input
-                type="date"
-                id="end_date"
-                name="end_date"
-                required
-            >
-
-        </div>
-
-
-        <button type="submit">
-            Confirm Booking
-        </button>
-
-    </form>
-
-</div>
-
-
-<script>
-
-    const serviceType =
-        document.getElementById("service_type");
-
-    const carSection =
-        document.getElementById("car-section");
-
-    const driverSection =
-        document.getElementById("driver-section");
-
-    const carSelect =
-        document.getElementById("car_id");
-
-    const driverSelect =
-        document.getElementById("driver_id");
-
-
-    function updateServiceFields() {
-
-        const service =
-            serviceType.value;
-
-
-        // Car Only
-        if (service === "Car Only") {
-
-            carSection.style.display = "block";
-            driverSection.style.display = "none";
-
-            carSelect.required = true;
-            driverSelect.required = false;
-
-            driverSelect.value = "";
+            return service;
 
         }
 
 
-        // Driver Only
-        else if (service === "Driver Only") {
+        function updateServiceFields() {
 
-            carSection.style.display = "none";
-            driverSection.style.display = "block";
+            let service = getSelectedService();
 
-            carSelect.required = false;
-            driverSelect.required = true;
 
-            carSelect.value = "";
+            if (service === "Car Only") {
+
+                carSection.classList.remove("hidden");
+
+                driverSection.classList.add("hidden");
+
+                carSelect.required = true;
+
+                driverSelect.required = false;
+
+                driverSelect.value = "";
+
+            }
+
+
+            else if (service === "Driver Only") {
+
+                carSection.classList.add("hidden");
+
+                driverSection.classList.remove("hidden");
+
+                carSelect.required = false;
+
+                driverSelect.required = true;
+
+                carSelect.value = "";
+
+            }
+
+
+            else if (service === "Car + Driver") {
+
+                carSection.classList.remove("hidden");
+
+                driverSection.classList.remove("hidden");
+
+                carSelect.required = true;
+
+                driverSelect.required = true;
+
+            }
+
+
+            else {
+
+                carSection.classList.add("hidden");
+
+                driverSection.classList.add("hidden");
+
+                carSelect.required = false;
+
+                driverSelect.required = false;
+
+                carSelect.value = "";
+
+                driverSelect.value = "";
+
+            }
+
+
+            updateSelectedCarMessage();
+
+            updateSummary();
 
         }
 
 
-        // Car + Driver
-        else if (service === "Car + Driver") {
+        serviceTypeInputs.forEach(
+            function(input) {
 
-            carSection.style.display = "block";
-            driverSection.style.display = "block";
+                input.addEventListener(
+                    "change",
+                    updateServiceFields
+                );
 
-            carSelect.required = true;
-            driverSelect.required = true;
+            }
+        );
+
+
+        /* =========================
+           SELECTED CAR MESSAGE
+        ========================= */
+
+        function updateSelectedCarMessage() {
+
+            if (
+                carSelect.value &&
+                (
+                    getSelectedService() === "Car Only" ||
+                    getSelectedService() === "Car + Driver"
+                )
+            ) {
+
+                carSelectedInfo.classList.add("show");
+
+            }
+
+            else {
+
+                carSelectedInfo.classList.remove("show");
+
+            }
+
+        }
+
+
+        /* =========================
+           SUMMARY
+        ========================= */
+
+        function updateSummary() {
+
+            const service =
+                getSelectedService() || "Not selected";
+
+
+            /* Pickup */
+
+            document.getElementById(
+                "summary-pickup"
+            ).textContent =
+                pickupInput.value ||
+                "Pickup location";
+
+
+            /* Destination */
+
+            document.getElementById(
+                "summary-destination"
+            ).textContent =
+                destinationInput.value ||
+                "Destination";
+
+
+            /* Service */
+
+            document.getElementById(
+                "summary-service"
+            ).textContent =
+                service;
+
+
+            /* Vehicle / Driver */
+
+            let option = "Not selected";
+
+
+            if (
+                service === "Car Only" &&
+                carSelect.value
+            ) {
+
+                option =
+                    carSelect.options[
+                        carSelect.selectedIndex
+                    ].text.trim();
+
+            }
+
+
+            else if (
+                service === "Driver Only" &&
+                driverSelect.value
+            ) {
+
+                option =
+                    driverSelect.options[
+                        driverSelect.selectedIndex
+                    ].text.trim();
+
+            }
+
+
+            else if (
+                service === "Car + Driver"
+            ) {
+
+                let car =
+                    carSelect.value
+                        ? carSelect.options[
+                            carSelect.selectedIndex
+                        ].text.trim()
+                        : "Car not selected";
+
+
+                let driver =
+                    driverSelect.value
+                        ? driverSelect.options[
+                            driverSelect.selectedIndex
+                        ].text.trim()
+                        : "Driver not selected";
+
+
+                option =
+                    car + " + " + driver;
+
+            }
+
+
+            document.getElementById(
+                "summary-option"
+            ).textContent =
+                option;
+
+
+            /* Dates */
+
+            if (
+                startDate.value &&
+                endDate.value
+            ) {
+
+                document.getElementById(
+                    "summary-dates"
+                ).textContent =
+                    startDate.value +
+                    " → " +
+                    endDate.value;
+
+            }
+
+            else {
+
+                document.getElementById(
+                    "summary-dates"
+                ).textContent =
+                    "Not selected";
+
+            }
+
+
+            /* Price */
+
+            updateEstimatedPrice();
 
         }
 
 
-        // No service selected
-        else {
+        /* =========================
+           ESTIMATED PRICE
+        ========================= */
 
-            carSection.style.display = "none";
-            driverSection.style.display = "none";
+        function updateEstimatedPrice() {
 
-            carSelect.required = false;
-            driverSelect.required = false;
+            let service =
+                getSelectedService();
 
-            carSelect.value = "";
-            driverSelect.value = "";
+
+            let days = 0;
+
+
+            if (
+                startDate.value &&
+                endDate.value
+            ) {
+
+                const start =
+                    new Date(
+                        startDate.value
+                    );
+
+                const end =
+                    new Date(
+                        endDate.value
+                    );
+
+
+                const difference =
+                    end - start;
+
+
+                days =
+                    Math.floor(
+                        difference /
+                        (1000 * 60 * 60 * 24)
+                    ) + 1;
+
+            }
+
+
+            if (days <= 0) {
+
+                document.getElementById(
+                    "summary-price"
+                ).innerHTML =
+                    "₹0 <span>estimated</span>";
+
+                return;
+
+            }
+
+
+            let total = 0;
+
+
+            /* Car price */
+
+            if (
+                (
+                    service === "Car Only" ||
+                    service === "Car + Driver"
+                )
+                &&
+                carSelect.value
+            ) {
+
+                const selectedCar =
+                    carSelect.options[
+                        carSelect.selectedIndex
+                    ];
+
+
+                const carText =
+                    selectedCar.text;
+
+
+                const priceMatch =
+                    carText.match(
+                        /₹([\d,.]+)/
+                    );
+
+
+                if (priceMatch) {
+
+                    total +=
+                        parseFloat(
+                            priceMatch[1]
+                                .replace(/,/g, "")
+                        );
+
+                }
+
+            }
+
+
+            /* Driver price */
+
+            if (
+                (
+                    service === "Driver Only" ||
+                    service === "Car + Driver"
+                )
+                &&
+                driverSelect.value
+            ) {
+
+                const selectedDriver =
+                    driverSelect.options[
+                        driverSelect.selectedIndex
+                    ];
+
+
+                const driverText =
+                    selectedDriver.text;
+
+
+                const priceMatch =
+                    driverText.match(
+                        /₹([\d,.]+)/
+                    );
+
+
+                if (priceMatch) {
+
+                    total +=
+                        parseFloat(
+                            priceMatch[1]
+                                .replace(/,/g, "")
+                        );
+
+                }
+
+            }
+
+
+            total *= days;
+
+
+            document.getElementById(
+                "summary-price"
+            ).innerHTML =
+                "₹" +
+                total.toLocaleString("en-IN") +
+                ' <span>estimated</span>';
 
         }
 
-    }
+
+        /* =========================
+           LIVE UPDATES
+        ========================= */
+
+        pickupInput.addEventListener(
+            "input",
+            updateSummary
+        );
 
 
-    serviceType.addEventListener(
-        "change",
-        updateServiceFields
-    );
+        destinationInput.addEventListener(
+            "input",
+            updateSummary
+        );
 
 
-    // Initial state
-    updateServiceFields();
+        carSelect.addEventListener(
+            "change",
+            function() {
+
+                updateSelectedCarMessage();
+
+                updateSummary();
+
+            }
+        );
 
 
-    // Prevent end date before start date
-    const startDate =
-        document.getElementById("start_date");
-
-    const endDate =
-        document.getElementById("end_date");
+        driverSelect.addEventListener(
+            "change",
+            updateSummary
+        );
 
 
-    startDate.addEventListener(
-        "change",
-        function () {
+        startDate.addEventListener(
+            "change",
+            updateSummary
+        );
 
-            endDate.min = startDate.value;
+
+        endDate.addEventListener(
+            "change",
+            updateSummary
+        );
+
+
+        /* =========================
+           DATE VALIDATION
+        ========================= */
+
+        startDate.addEventListener(
+            "change",
+            function() {
+
+                endDate.min =
+                    startDate.value;
+
+
+                if (
+                    endDate.value &&
+                    endDate.value < startDate.value
+                ) {
+
+                    endDate.value = "";
+
+                }
+
+
+                updateSummary();
+
+            }
+        );
+
+
+        /* =========================
+           IMPORTANT:
+           CAR BUTTON ENTRY
+        ========================= */
+
+        const selectedCarId =
+            "{{ selected_car_id or '' }}";
+
+
+        if (selectedCarId) {
+
+            /* Automatically select Car Only */
+
+            const carOnly =
+                document.getElementById(
+                    "car-only"
+                );
+
+
+            carOnly.checked = true;
+
+
+            /*
+             * Make sure the selected car
+             * is displayed.
+             */
+
+            carSelect.value =
+                selectedCarId;
+
+
+            updateServiceFields();
 
         }
-    );
 
-</script>
+
+        /* =========================
+           INITIAL STATE
+        ========================= */
+
+        updateServiceFields();
+
+        updateSummary();
+
+
+    </script>
+
 
 </body>
+
 </html>

@@ -2,72 +2,796 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PRAYAN - Cars</title>
+    <title>PRAYAN | Available Cars</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 76px;
+
+            background: rgba(255, 255, 255, 0.97);
+
+            border-bottom: 1px solid #e7ebf2;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 27px;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .nav-links {
+            display: flex;
+
+            align-items: center;
+
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+
+            color: #596273;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        .home-btn {
+            padding: 10px 18px;
+
+            border-radius: 10px;
+
+            background: #172033;
+
+            color: white !important;
+        }
+
+        .home-btn:hover {
+            background: #4f46e5;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .page-header {
+            padding: 55px 7% 45px;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(79, 70, 229, 0.10),
+                    transparent 35%
+                ),
+                #f7f9ff;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 7px 13px;
+
+            background: #e7e9ff;
+
+            color: #4f46e5;
+
+            border-radius: 30px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.5px;
+
+            margin-bottom: 15px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(34px, 4vw, 50px);
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #667085;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+
+            max-width: 650px;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main-container {
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding: 45px 7% 85px;
+        }
+
+
+        /* =========================
+           FLASH MESSAGE
+        ========================= */
+
+        .flash {
+            background: #fff4e5;
+
+            border: 1px solid #ffd59a;
+
+            color: #8a5200;
+
+            padding: 14px 16px;
+
+            border-radius: 12px;
+
+            margin-bottom: 25px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           CAR GRID
+        ========================= */
+
+        .car-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 22px;
+        }
+
+
+        /* =========================
+           CAR CARD
+        ========================= */
+
+        .car-card {
+            background: white;
+
+            border: 1px solid #e7ebf2;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 12px 35px rgba(31, 41, 55, 0.07);
+
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s;
+        }
+
+        .car-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 20px 45px rgba(31, 41, 55, 0.12);
+        }
+
+
+        /* =========================
+           CAR VISUAL
+        ========================= */
+
+        .car-visual {
+            height: 180px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1b2440,
+                    #3b4775
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .car-visual::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: rgba(99, 102, 241, 0.20);
+
+            top: -80px;
+            right: -40px;
+        }
+
+        .car-icon {
+            font-size: 75px;
+
+            position: relative;
+
+            filter:
+                drop-shadow(
+                    0 10px 10px rgba(0, 0, 0, 0.2)
+                );
+        }
+
+
+        /* =========================
+           CARD CONTENT
+        ========================= */
+
+        .car-content {
+            padding: 23px;
+        }
+
+        .car-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 10px;
+
+            margin-bottom: 18px;
+        }
+
+        .car-model {
+            font-size: 19px;
+
+            font-weight: 700;
+
+            margin-bottom: 6px;
+        }
+
+        .car-number {
+            color: #8a93a3;
+
+            font-size: 12px;
+        }
+
+        .status {
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            text-transform: capitalize;
+
+            white-space: nowrap;
+
+            background: #e9f9ef;
+
+            color: #16803d;
+        }
+
+
+        /* =========================
+           DETAILS
+        ========================= */
+
+        .car-details {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 10px;
+
+            margin-bottom: 20px;
+        }
+
+        .detail {
+            padding: 12px;
+
+            background: #f7f8fb;
+
+            border-radius: 11px;
+        }
+
+        .detail-label {
+            display: block;
+
+            color: #9299a7;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.4px;
+
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           PRICE
+        ========================= */
+
+        .price-section {
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-between;
+
+            border-top: 1px solid #edf0f5;
+
+            padding-top: 18px;
+        }
+
+        .price-label {
+            color: #9299a7;
+
+            font-size: 11px;
+
+            margin-bottom: 4px;
+        }
+
+        .price {
+            font-size: 22px;
+
+            font-weight: 800;
+
+            color: #4f46e5;
+        }
+
+        .price span {
+            font-size: 11px;
+
+            font-weight: 500;
+
+            color: #9299a7;
+        }
+
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty-state {
+            background: white;
+
+            border: 1px solid #e7ebf2;
+
+            border-radius: 20px;
+
+            padding: 60px 30px;
+
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 50px;
+
+            margin-bottom: 15px;
+        }
+
+        .empty-state h2 {
+            font-size: 21px;
+
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: #8a93a3;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #111827;
+
+            color: #9ca3af;
+
+            text-align: center;
+
+            padding: 28px;
+
+            font-size: 12px;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 0 5%;
+            }
+
+            .nav-links a:not(.home-btn) {
+                display: none;
+            }
+
+            .page-header {
+                padding: 40px 5% 35px;
+            }
+
+            .main-container {
+                padding: 30px 5% 60px;
+            }
+
+        }
+.book-btn {
+    text-decoration: none;
+
+    background: #4f46e5;
+
+    color: white;
+
+    padding: 11px 15px;
+
+    border-radius: 10px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    transition: 0.2s;
+}
+
+.book-btn:hover {
+    background: #3730a3;
+
+    transform: translateY(-1px);
+}
+    </style>
+
 </head>
+
 
 <body>
 
-    <h1>Available Cars</h1>
 
-    <p>
-        <a href="{{ url_for('dashboard') }}">Dashboard</a>
-    </p>
+    <!-- =========================
+         NAVBAR
+    ========================= -->
 
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    <nav class="navbar">
 
-    {% if cars %}
+        <div class="logo">
+            PRA<span>YAN</span>
+        </div>
 
-        {% for car in cars %}
+        <div class="nav-links">
 
-            <div>
+            <a href="/">
+                Home
+            </a>
 
-                <h2>{{ car.car_model }}</h2>
+            <a href="{{ url_for('cars') }}">
+                Cars
+            </a>
 
-                <p>
-                    <strong>Car Number:</strong>
-                    {{ car.car_number }}
-                </p>
+            <a href="{{ url_for('drivers') }}">
+                Drivers
+            </a>
 
-                <p>
-                    <strong>Type:</strong>
-                    {{ car.car_type }}
-                </p>
+            <a href="{{ url_for('my_bookings') }}">
+                My Bookings
+            </a>
 
-                <p>
-                    <strong>Seats:</strong>
-                    {{ car.seats }}
-                </p>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+             <a href="{{ url_for('logout') }}" class="logout-btn">
+            Logout
+        </a>
+        </div>
 
-                <p>
-                    <strong>Price per day:</strong>
-                    ₹{{ car.price_per_day }}
-                </p>
+    </nav>
 
-                <p>
-                    <strong>Status:</strong>
-                    {{ car.availability_status }}
-                </p>
 
-                <hr>
+    <!-- =========================
+         PAGE HEADER
+    ========================= -->
+
+    <section class="page-header">
+
+        <div class="badge">
+            PRAYAN FLEET
+        </div>
+
+        <h1>
+            Choose your ride.
+        </h1>
+
+        <p>
+            Explore our available cars and find the right
+            vehicle for your journey.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="main-container">
+
+
+        <!-- Flash Messages -->
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="flash">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        {% if cars %}
+
+
+            <div class="car-grid">
+
+
+                {% for car in cars %}
+
+
+                    <div class="car-card">
+
+
+                        <!-- Visual -->
+
+                        <div class="car-visual">
+
+                            <div class="car-icon">
+                                🚗
+                            </div>
+
+                        </div>
+
+
+                        <!-- Content -->
+
+                        <div class="car-content">
+
+
+                            <div class="car-top">
+
+                                <div>
+
+                                    <div class="car-model">
+                                        {{ car.car_model }}
+                                    </div>
+
+                                    <div class="car-number">
+                                        {{ car.car_number }}
+                                    </div>
+
+                                </div>
+
+
+                                <div class="status">
+
+                                    {{ car.availability_status }}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Details -->
+
+                            <div class="car-details">
+
+
+                                <div class="detail">
+
+                                    <span class="detail-label">
+                                        Type
+                                    </span>
+
+                                    <span class="detail-value">
+                                        {{ car.car_type }}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="detail">
+
+                                    <span class="detail-label">
+                                        Seats
+                                    </span>
+
+                                    <span class="detail-value">
+                                        {{ car.seats }} seats
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- Price -->
+
+                            <div class="price-section">
+
+    <div>
+
+        <div class="price-label">
+            Rental price
+        </div>
+
+        <div class="price">
+
+            ₹{{ car.price_per_day }}
+
+            <span>
+                / day
+            </span>
+
+        </div>
+
+                                 </div>
+
+
+                               <a
+                                 href="{{ url_for('booking', car_id=car.car_id) }}"
+                                class="book-btn"
+                               >
+                               Book this car →
+                              </a>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                {% endfor %}
+
 
             </div>
 
-        {% endfor %}
 
-    {% else %}
+        {% else %}
 
-        <p>No cars available.</p>
 
-    {% endif %}
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🚗
+                </div>
+
+                <h2>
+                    No cars available
+                </h2>
+
+                <p>
+                    There are currently no cars available
+                    for booking.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <strong>PRAYAN</strong>
+        — Smart Car & Driver Rental Platform
+
+    </footer>
+
 
 </body>
 

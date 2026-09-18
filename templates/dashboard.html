@@ -6,40 +6,394 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>PRAYAN - Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", Arial, sans-serif;
+            background: #f6f7fb;
+            color: #111827;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 72px;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+        }
+
+        .logo {
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #111827;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        .logout {
+            background: #4f46e5;
+            color: white !important;
+            padding: 10px 17px;
+            border-radius: 10px;
+        }
+
+        .logout:hover {
+            background: #3730a3;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 55px 24px 80px;
+        }
+
+        .welcome {
+            margin-bottom: 40px;
+        }
+
+        .eyebrow {
+            color: #4f46e5;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .welcome h1 {
+            font-size: 38px;
+            letter-spacing: -1.5px;
+            margin-bottom: 10px;
+        }
+
+        .welcome p {
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        /* CARDS */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 28px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.09);
+        }
+
+        .icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 15px;
+            background: #eef2ff;
+            color: #4f46e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-link {
+            color: #4f46e5;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        /* PRIMARY CARD */
+
+        .primary {
+            background: #4f46e5;
+            color: white;
+            border-color: #4f46e5;
+        }
+
+        .primary .icon {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+        .primary p {
+            color: #e0e7ff;
+        }
+
+        .primary .card-link {
+            color: white;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 12px;
+            padding: 25px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                gap: 10px;
+            }
+
+            .nav-links a:not(.logout) {
+                display: none;
+            }
+
+            .container {
+                padding: 35px 16px 60px;
+            }
+
+            .welcome h1 {
+                font-size: 30px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
 </head>
 
 <body>
 
-    <h1>PRAYAN Dashboard</h1>
 
-    <h2>Welcome, {{ user_name }}!</h2>
+<!-- NAVBAR -->
 
-    <p>You are successfully logged in.</p>
+<nav class="navbar">
 
-    <hr>
+    <a href="{{ url_for('home') }}" class="logo">
+        PRA<span>YAN</span>
+    </a>
 
-    <p>
-        <a href="{{ url_for('booking') }}">
-            Book a Service
+    <div class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
         </a>
-    </p>
-    <p>
+
         <a href="{{ url_for('cars') }}">
-            View Cars
+            Cars
         </a>
-    </p>
 
-    <p>
-        <a href="{{ url_for('drivers') }}">
-            View Drivers
+        <a href="{{ url_for('booking') }}">
+            New Booking
         </a>
-    </p>
-    <p>
-        <a href="{{ url_for('logout') }}">
+
+        <a href="{{ url_for('my_bookings') }}">
+            My Bookings
+        </a>
+
+        <a href="{{ url_for('logout') }}" class="logout">
             Logout
         </a>
-    </p>
+
+    </div>
+
+</nav>
+
+
+<!-- MAIN -->
+
+<main class="container">
+
+    <section class="welcome">
+
+        <div class="eyebrow">
+            PRAYAN Dashboard
+        </div>
+
+        <h1>
+            Welcome, {{ user_name }}!
+        </h1>
+
+        <p>
+            Manage your trips, explore vehicles, and book your next journey.
+        </p>
+
+    </section>
+
+
+    <!-- DASHBOARD CARDS -->
+
+    <div class="cards">
+
+
+        <!-- BOOK SERVICE -->
+
+        <a href="{{ url_for('booking') }}" class="card primary">
+
+            <div class="icon">
+                🚗
+            </div>
+
+            <h2>
+                Book a Service
+            </h2>
+
+            <p>
+                Choose a car, driver, or both and plan your journey.
+            </p>
+
+            <div class="card-link">
+                Start a New Booking →
+            </div>
+
+        </a>
+
+
+        <!-- MY BOOKINGS -->
+
+        <a href="{{ url_for('my_bookings') }}" class="card">
+
+            <div class="icon">
+                📋
+            </div>
+
+            <h2>
+                My Bookings
+            </h2>
+
+            <p>
+                View your previous and upcoming bookings, prices, and booking status.
+            </p>
+
+            <div class="card-link">
+                View My Bookings →
+            </div>
+
+        </a>
+
+
+        <!-- CARS -->
+
+        <a href="{{ url_for('cars') }}" class="card">
+
+            <div class="icon">
+                🚘
+            </div>
+
+            <h2>
+                Available Cars
+            </h2>
+
+            <p>
+                Explore available cars and choose the vehicle that suits your journey.
+            </p>
+
+            <div class="card-link">
+                Browse Cars →
+            </div>
+
+        </a>
+
+
+        <!-- DRIVERS -->
+
+        <a href="{{ url_for('drivers') }}" class="card">
+
+            <div class="icon">
+                👨‍✈️
+            </div>
+
+            <h2>
+                Available Drivers
+            </h2>
+
+            <p>
+                Browse available drivers and their details for your trip.
+            </p>
+
+            <div class="card-link">
+                Browse Drivers →
+            </div>
+
+        </a>
+
+    </div>
+
+</main>
+
+
+<footer>
+    © 2026 PRAYAN · Smart Car & Driver Rental
+</footer>
+
 
 </body>
-
 </html>
