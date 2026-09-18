@@ -1,0 +1,385 @@
+/* =========================================
+   PRAYAN - Customer Frontend
+   Member 7
+   ========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f7fb;
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+/* =========================================
+   Navigation
+   ========================================= */
+
+.navbar {
+  background: #111827;
+  padding: 16px 0;
+}
+
+.nav-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 22px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.nav-links a:hover {
+  color: #93c5fd;
+}
+
+/* =========================================
+   Main Container
+   ========================================= */
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* =========================================
+   Hero
+   ========================================= */
+
+.hero {
+  background: white;
+  padding: 60px 30px;
+  text-align: center;
+  border-radius: 16px;
+  margin-bottom: 35px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.hero .tagline {
+  font-size: 22px;
+  color: #4b5563;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  color: #6b7280;
+  margin-bottom: 25px;
+}
+
+/* =========================================
+   Service Cards
+   ========================================= */
+
+.section-title {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 28px 22px;
+  border-radius: 14px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+}
+
+.service-card {
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+}
+
+.service-card h3 {
+  margin-bottom: 10px;
+}
+
+.service-card p {
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+/* =========================================
+   Buttons
+   ========================================= */
+
+.btn {
+  display: inline-block;
+  border: none;
+  padding: 11px 20px;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+}
+
+.btn-secondary {
+  background: #4b5563;
+}
+
+.btn-secondary:hover {
+  background: #374151;
+}
+
+.btn-success {
+  background: #16a34a;
+}
+
+.btn-success:hover {
+  background: #15803d;
+}
+
+.btn-danger {
+  background: #dc2626;
+}
+
+.btn-danger:hover {
+  background: #b91c1c;
+}
+
+/* =========================================
+   Forms
+   ========================================= */
+
+.form-container {
+  max-width: 650px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* =========================================
+   Listing Cards
+   ========================================= */
+
+.listing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.listing-card h3 {
+  margin-bottom: 8px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+.available {
+  color: #16a34a;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* =========================================
+   Booking
+   ========================================= */
+
+.booking-summary {
+  background: #f3f4f6;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.booking-summary p {
+  margin-bottom: 8px;
+}
+
+/* =========================================
+   Success
+   ========================================= */
+
+.success-box {
+  max-width: 650px;
+  margin: 60px auto;
+  text-align: center;
+  background: white;
+  padding: 45px 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.success-icon {
+  font-size: 55px;
+  margin-bottom: 15px;
+}
+
+.success-box h1 {
+  margin-bottom: 15px;
+}
+
+/* =========================================
+   Dashboard
+   ========================================= */
+
+.booking-card {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+.booking-card h3 {
+  margin-bottom: 10px;
+}
+
+.status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: #dcfce7;
+  color: #166534;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* =========================================
+   Route / Map
+   ========================================= */
+
+.route-box {
+  background: white;
+  padding: 25px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+}
+
+#map {
+  height: 500px;
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* =========================================
+   Footer
+   ========================================= */
+
+.footer {
+  text-align: center;
+  padding: 25px;
+  margin-top: 40px;
+  color: #6b7280;
+}
+
+/* =========================================
+   Responsive
+   ========================================= */
+
+@media (max-width: 800px) {
+  .service-grid,
+  .listing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding: 25px 15px;
+  }
+
+  .hero {
+    padding: 40px 20px;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+  }
+
+  .form-container {
+    padding: 20px;
+  }
+
+  #map {
+    height: 350px;
+  }
+}

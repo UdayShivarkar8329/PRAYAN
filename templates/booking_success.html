@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PRAYAN - Booking Confirmed</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+
+            <a href="/" class="logo">PRAYAN</a>
+
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/booking">Services</a></li>
+                <li><a href="/cars">Cars</a></li>
+                <li><a href="/drivers">Drivers</a></li>
+                <li><a href="/my-bookings">My Bookings</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <main class="container">
+
+        <div class="success-box">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h1>Booking Confirmed!</h1>
+
+            <p>
+                Your PRAYAN booking has been successfully confirmed.
+            </p>
+
+            <p>
+                <strong>Booking ID:</strong>
+                {{ booking_id }}
+            </p>
+
+            <p>
+                <strong>From:</strong>
+                {{ pickup_location }}
+            </p>
+
+            <p>
+                <strong>To:</strong>
+                {{ destination }}
+            </p>
+
+            <div style="margin-top: 25px;">
+
+                <a href="/my-bookings" class="btn">
+                    View My Bookings
+                </a>
+
+                <a href="/" class="btn btn-secondary">
+                    Back to Home
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer class="footer">
+
+        <p>
+            © 2026 PRAYAN — Your Journey, Your Choice.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

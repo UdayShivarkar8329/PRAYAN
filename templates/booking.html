@@ -1,110 +1,176 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>PRAYAN - Booking</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 30px;
-            background: #f5f5f5;
-        }
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
 
-        .booking-box {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-        }
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="/" class="logo">PRAYAN</a>
 
-        h1 {
-            margin-bottom: 25px;
-        }
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/booking">Services</a></li>
+          <li><a href="/cars">Cars</a></li>
+          <li><a href="/drivers">Drivers</a></li>
+          <li><a href="/my-bookings">My Bookings</a></li>
+          <li><a href="/login">Login</a></li>
+        </ul>
+      </div>
+    </nav>
 
-        .journey {
-            background: #f0f0f0;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
+    <main class="container">
+      <div class="form-container">
+        <h1 class="section-title">Book Your Journey</h1>
 
-        label {
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
+        <p style="text-align: center; margin-bottom: 30px">
+          Enter your trip details to continue.
+        </p>
 
-        select,
-        input {
-            width: 100%;
-            padding: 12px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
+        <form method="POST" action="/booking">
+          <!-- Service Type -->
+          <div class="form-group">
+            <label for="service_type"> Service Type </label>
 
-        button {
-            margin-top: 25px;
-            padding: 12px 25px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
-</head>
+            <select id="service_type" name="service_type" required>
+              <option value="">Select a service</option>
 
-<body>
+              <option
+                value="car"
+                {%
+                if
+                service_type == "car"
+                %}selected{%
+                endif
+                %}
+              >
+                Car Only
+              </option>
 
-    <div class="booking-box">
+              <option
+                value="driver"
+                {%
+                if
+                service_type == "driver"
+                %}selected{%
+                endif
+                %}
+              >
+                Driver Only
+              </option>
 
-        <h1>PRAYAN Booking</h1>
+              <option
+                value="car_driver"
+                {%
+                if
+                service_type == "car_driver"
+                %}selected{%
+                endif
+                %}
+              >
+                Car + Driver
+              </option>
+            </select>
+          </div>
 
-        <div class="journey">
-            <p>
-                <strong>Pickup:</strong> Amravati
-            </p>
+          <!-- Pickup -->
+          <div class="form-group">
+            <label for="pickup_location"> Pickup Location </label>
 
-            <p>
-                <strong>Destination:</strong> {{ destination }}
-            </p>
-        </div>
+            <input
+              type="text"
+              id="pickup_location"
+              name="pickup_location"
+              value="{{ pickup_location or 'Amravati' }}"
+              required
+            />
+          </div>
 
-        <h2>Select Service</h2>
+          <!-- Destination -->
+          <div class="form-group">
+            <label for="destination"> Destination </label>
 
-        <label for="service">Service Type</label>
+            <input
+              type="text"
+              id="destination"
+              name="destination"
+              value="{{ destination or '' }}"
+              placeholder="Enter your destination"
+              required
+            />
+          </div>
 
-        <select id="service">
-            <option value="car">Car Only</option>
-            <option value="driver">Driver Only</option>
-            <option value="car_driver">Car + Driver</option>
-        </select>
+          <!-- Start Date -->
+          <div class="form-group">
+            <label for="start_date"> Start Date </label>
 
-        <label for="date">Travel Date</label>
+            <input type="date" id="start_date" name="start_date" required />
+          </div>
 
-        <input type="date" id="date">
+          <!-- End Date -->
+          <div class="form-group">
+            <label for="end_date"> End Date </label>
 
-        <button onclick="confirmBooking()">
-            Confirm Booking
-        </button>
+            <input type="date" id="end_date" name="end_date" required />
+          </div>
 
-    </div>
+          <!-- Car -->
+          <div class="form-group">
+            <label for="car_id"> Car </label>
 
+            <select id="car_id" name="car_id">
+              <option value="">No car selected</option>
 
-    <script>
+              <option value="1" {% if car_id == "1" %}selected{% endif %}>
+                Maruti Ertiga
+              </option>
 
-        function confirmBooking() {
+              <option value="2" {% if car_id == "2" %}selected{% endif %}>
+                Maruti Swift
+              </option>
 
-            alert("Booking details submitted!");
+              <option value="3" {% if car_id == "3" %}selected{% endif %}>
+                Mahindra Scorpio
+              </option>
+            </select>
+          </div>
 
-        }
+          <!-- Driver -->
+          <div class="form-group">
+            <label for="driver_id"> Driver </label>
 
-    </script>
+            <select id="driver_id" name="driver_id">
+              <option value="">No driver selected</option>
 
-</body>
+              <option value="1" {% if driver_id == "1" %}selected{% endif %}>
+                Rahul Patil
+              </option>
 
+              <option value="2" {% if driver_id == "2" %}selected{% endif %}>
+                Akash Sharma
+              </option>
+
+              <option value="3" {% if driver_id == "3" %}selected{% endif %}>
+                Vijay Deshmukh
+              </option>
+            </select>
+          </div>
+          <button type="submit" class="btn">Continue to Booking Summary</button>
+        </form>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>Â© 2026 PRAYAN â€” Your Journey, Your Choice.</p>
+    </footer>
+  </body>
 </html>
