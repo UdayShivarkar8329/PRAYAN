@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PRAYAN - My Bookings</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+
+            <a href="/" class="logo">PRAYAN</a>
+
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/booking">Services</a></li>
+                <li><a href="/cars">Cars</a></li>
+                <li><a href="/drivers">Drivers</a></li>
+                <li><a href="/my-bookings">My Bookings</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <main class="container">
+
+        <h1 class="section-title">My Bookings</h1>
+
+        <p style="text-align: center; margin-bottom: 30px;">
+            View your upcoming and previous PRAYAN bookings.
+        </p>
+
+
+        {% if bookings %}
+
+            {% for booking in bookings %}
+
+                <div class="card booking-card">
+
+                    <h3>
+                        Booking #{{ booking.id }}
+                    </h3>
+
+                    <p>
+                        <strong>Service:</strong>
+                        {{ booking.service_type }}
+                    </p>
+
+                    <p>
+                        <strong>From:</strong>
+                        {{ booking.pickup_location }}
+                    </p>
+
+                    <p>
+                        <strong>To:</strong>
+                        {{ booking.destination }}
+                    </p>
+
+                    <p>
+                        <strong>Travel Dates:</strong>
+                        {{ booking.start_date }}
+                        to
+                        {{ booking.end_date }}
+                    </p>
+
+                    <p>
+                        <strong>Car:</strong>
+                        {{ booking.car_name or "Not selected" }}
+                    </p>
+
+                    <p>
+                        <strong>Driver:</strong>
+                        {{ booking.driver_name or "Not selected" }}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+
+                        <span class="status">
+                            {{ booking.status }}
+                        </span>
+                    </p>
+
+                    {% if booking.status != "Cancelled" %}
+
+                        <a
+                            href="/cancel-booking/{{ booking.id }}"
+                            class="btn btn-danger"
+                        >
+                            Cancel Booking
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="success-box">
+
+                <div class="success-icon">
+                    —
+                </div>
+
+                <h2>No Bookings Yet</h2>
+
+                <p>
+                    You haven't made any bookings yet.
+                </p>
+
+                <a href="/booking" class="btn">
+                    Book a Journey
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+
+    <footer class="footer">
+
+        <p>
+            © 2026 PRAYAN — Your Journey, Your Choice.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

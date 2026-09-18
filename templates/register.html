@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>PRAYAN - Register</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="/" class="logo">PRAYAN</a>
+
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/booking">Services</a></li>
+          <li><a href="/cars">Cars</a></li>
+          <li><a href="/drivers">Drivers</a></li>
+          <li><a href="/my-bookings">My Bookings</a></li>
+          <li><a href="/login">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container">
+      <div class="form-container">
+        <h1 class="section-title">Create Account</h1>
+
+        <p style="text-align: center; margin-bottom: 25px">
+          Register with PRAYAN to book your journey.
+        </p>
+
+        <form method="POST" action="/register">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Enter your phone number"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn">Create Account</button>
+        </form>
+
+        <p style="text-align: center; margin-top: 20px">
+          Already have an account?
+          <a href="/login">Login here</a>
+        </p>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 PRAYAN — Your Journey, Your Choice.</p>
+    </footer>
+  </body>
+</html>

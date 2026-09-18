@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>PRAYAN - Cars</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="/" class="logo">PRAYAN</a>
+
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/booking">Services</a></li>
+          <li><a href="/cars">Cars</a></li>
+          <li><a href="/drivers">Drivers</a></li>
+          <li><a href="/my-bookings">My Bookings</a></li>
+          <li><a href="/login">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container">
+      <h1 class="section-title">Available Cars</h1>
+
+      <p style="text-align: center; margin-bottom: 30px">
+        Choose a car for your journey from Amravati to your Maharashtra
+        destination.
+      </p>
+
+      <div class="listing-grid">
+        <!-- Demo car -->
+        <div class="card listing-card">
+          <h3>Maruti Ertiga</h3>
+
+          <p>SUV • 7 seats</p>
+
+          <p class="price">₹2,200 / day</p>
+
+          <p class="available">Available</p>
+
+          <a href="/booking?service_type=car&car_id=1" class="btn">
+            Select Car
+          </a>
+        </div>
+
+        <!-- Demo car -->
+        <div class="card listing-card">
+          <h3>Maruti Swift</h3>
+
+          <p>Hatchback • 5 seats</p>
+
+          <p class="price">₹1,600 / day</p>
+
+          <p class="available">Available</p>
+
+          <a href="/booking?service_type=car&car_id=2" class="btn">
+            Select Car
+          </a>
+        </div>
+
+        <!-- Demo car -->
+        <div class="card listing-card">
+          <h3>Mahindra Scorpio</h3>
+
+          <p>SUV • 7 seats</p>
+
+          <p class="price">₹2,500 / day</p>
+
+          <p class="available">Available</p>
+
+          <a href="/booking?service_type=car&car_id=3" class="btn">
+            Select Car
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 PRAYAN — Your Journey, Your Choice.</p>
+    </footer>
+  </body>
+</html>

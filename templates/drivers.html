@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>PRAYAN - Drivers</title>
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="/" class="logo">PRAYAN</a>
+
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/booking">Services</a></li>
+          <li><a href="/cars">Cars</a></li>
+          <li><a href="/drivers">Drivers</a></li>
+          <li><a href="/my-bookings">My Bookings</a></li>
+          <li><a href="/login">Login</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="container">
+      <h1 class="section-title">Available Drivers</h1>
+
+      <p style="text-align: center; margin-bottom: 30px">
+        Choose a professional driver for your journey from Amravati.
+      </p>
+
+      <div class="listing-grid">
+        <div class="card listing-card">
+          <h3>Rahul Patil</h3>
+
+          <p>5+ years driving experience</p>
+
+          <p>Outstation &amp; Local Trips</p>
+
+          <p class="price">₹1,200 / day</p>
+
+          <p class="available">Available</p>
+
+          <a href="/booking?service_type=driver&driver_id=1" class="btn">
+            Select Driver
+          </a>
+        </div>
+
+        <div class="card listing-card">
+          <h3>Akash Sharma</h3>
+
+          <p>7+ years driving experience</p>
+
+          <p>Outstation &amp; Highway Trips</p>
+
+          <p class="price">₹1,400 / day</p>
+
+          <p class="available">Available</p>
+
+          <a href="/booking?service_type=driver&driver_id=2" class="btn">
+            Select Driver
+          </a>
+        </div>
+
+        <div class="card listing-card">
+          <h3>Vijay Deshmukh</h3>
+
+          <p>4+ years driving experience</p>
+
+          <p>Local &amp; Outstation Trips</p>
+
+          <p class="price">₹1,100 / day</p>
+
+          <p class="available">Available</p>
+
+          <a href="/booking?service_type=driver&driver_id=3" class="btn">
+            Select Driver
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>© 2026 PRAYAN — Your Journey, Your Choice.</p>
+    </footer>
+  </body>
+</html>

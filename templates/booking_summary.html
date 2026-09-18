@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PRAYAN - Booking Summary</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+
+            <a href="/" class="logo">PRAYAN</a>
+
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/booking">Services</a></li>
+                <li><a href="/cars">Cars</a></li>
+                <li><a href="/drivers">Drivers</a></li>
+                <li><a href="/my-bookings">My Bookings</a></li>
+                <li><a href="/login">Login</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <main class="container">
+
+        <div class="booking-summary">
+
+            <h1 class="section-title">Booking Summary</h1>
+
+            <p style="text-align: center; margin-bottom: 30px;">
+                Please review your journey details before confirming.
+            </p>
+
+
+            <div class="card">
+
+                <h3>Trip Details</h3>
+
+                <p>
+                    <strong>Service:</strong>
+                    {{ service_type }}
+                </p>
+
+                <p>
+                    <strong>Pickup:</strong>
+                    {{ pickup_location }}
+                </p>
+
+                <p>
+                    <strong>Destination:</strong>
+                    {{ destination }}
+                </p>
+
+                <p>
+                    <strong>Start Date:</strong>
+                    {{ start_date }}
+                </p>
+
+                <p>
+                    <strong>End Date:</strong>
+                    {{ end_date }}
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>Selected Options</h3>
+
+                <p>
+                    <strong>Car:</strong>
+                    {{ car_name or "No car selected" }}
+                </p>
+
+                <p>
+                    <strong>Driver:</strong>
+                    {{ driver_name or "No driver selected" }}
+                </p>
+
+            </div>
+
+
+            <form method="POST" action="/booking/confirm">
+
+                <input
+                    type="hidden"
+                    name="service_type"
+                    value="{{ service_type }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="pickup_location"
+                    value="{{ pickup_location }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="destination"
+                    value="{{ destination }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="start_date"
+                    value="{{ start_date }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="end_date"
+                    value="{{ end_date }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="car_id"
+                    value="{{ car_id }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="driver_id"
+                    value="{{ driver_id }}"
+                >
+
+
+                <button type="submit" class="btn btn-success">
+                    Confirm Booking
+                </button>
+
+            </form>
+
+
+            <div style="text-align: center; margin-top: 15px;">
+
+                <a href="/booking" class="btn btn-secondary">
+                    Edit Details
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer class="footer">
+
+        <p>
+            © 2026 PRAYAN — Your Journey, Your Choice.
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
