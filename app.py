@@ -353,7 +353,7 @@ def booking():
     destination = request.args.get("destination", "")
 
     if request.method == "POST":
-
+        pickup_location = request.form.get("pickup_location", "").strip()
         destination = request.form.get("destination", "").strip()
         service_type = request.form.get("service_type", "")
         car_id = request.form.get("car_id")
@@ -366,8 +366,11 @@ def booking():
         # -------------------------
         # VALIDATION
         # -------------------------
-
-        if not destination:
+        if not pickup_location:
+            validation_error = "Pickup location is required."
+        elif not destination:
+            validation_error = "Destination is required."
+        elif not destination:
             validation_error = "Destination is required."
 
         elif destination.lower() == "amravati":
@@ -441,7 +444,7 @@ def booking():
                         session["user_id"],
                         car_id,
                         driver_id,
-                        "Amravati",
+                        pickup_location,
                         destination,
                         start_date,
                         end_date,
