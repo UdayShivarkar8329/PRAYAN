@@ -3,7 +3,8 @@ create table users (
     name varchar(100) not null,
     email varchar(150) not null unique,
     phone varchar(20),
-    password_hash varchar(255) not null
+    password_hash varchar(255) not null,
+    role varchar(20) not null default 'user'
 );
 
 create table cars (

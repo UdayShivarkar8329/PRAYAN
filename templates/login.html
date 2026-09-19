@@ -526,21 +526,25 @@
              FLASH MESSAGES
         ========================= -->
 
-        {% with messages = get_flashed_messages() %}
+       {% with messages = get_flashed_messages(with_categories=true) %}
 
-            {% if messages %}
+    {% if messages %}
 
-                {% for message in messages %}
+        {% for category, message in messages %}
 
-                    <div class="flash">
-                        {{ message }}
-                    </div>
+            {% if category != "admin" %}
 
-                {% endfor %}
+                <div class="flash">
+                    {{ message }}
+                </div>
 
             {% endif %}
 
-        {% endwith %}
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
 
 
         <!-- =========================
@@ -628,6 +632,30 @@
             </a>
 
         </p>
+        <div style="margin: 25px 0; display: flex; align-items: center; gap: 12px;">
+    <div style="flex: 1; height: 1px; background: #e7ebf2;"></div>
+    <span style="color: #98a2b3; font-size: 13px;">OR</span>
+    <div style="flex: 1; height: 1px; background: #e7ebf2;"></div>
+</div>
+
+<a href="{{ url_for('admin_login') }}"
+style="
+    display: block;
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #4f46e5;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #4f46e5;
+    font-size: 14px;
+    font-weight: 600;
+    background: #ffffff;
+    transition: 0.2s;
+"
+onmouseover="this.style.background='#eef2ff'"
+onmouseout="this.style.background='#ffffff'">
+🔐 Login as Administrator </a>
 
 
         <!-- =========================

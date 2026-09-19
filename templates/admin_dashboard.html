@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>PRAYAN - Admin Dashboard</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 76px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            border-bottom: 1px solid #e8ebf2;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: #172033;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .admin-label {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .admin-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .logout {
+            text-decoration: none;
+            color: #4f46e5;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1450px;
+            margin: auto;
+            padding: 40px;
+        }
+
+        .heading {
+            margin-bottom: 30px;
+        }
+
+        .heading h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .heading p {
+            color: #667085;
+            font-size: 14px;
+        }
+
+        /* STAT CARDS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 8px 25px rgba(31, 41, 55, 0.06);
+            border: 1px solid #edf0f5;
+        }
+
+        .stat-title {
+            color: #667085;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #172033;
+        }
+
+        .stat-icon {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        /* SECTION */
+
+        .section {
+            background: white;
+            border-radius: 18px;
+            padding: 25px;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 25px rgba(31, 41, 55, 0.06);
+            border: 1px solid #edf0f5;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 19px;
+        }
+
+        .add-button {
+            border: none;
+            background: #4f46e5;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 9px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background: #4338ca;
+        }
+
+        /* TABLE */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th {
+            text-align: left;
+            font-size: 12px;
+            color: #667085;
+            text-transform: uppercase;
+            padding: 13px;
+            border-bottom: 1px solid #e8ebf2;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 15px 13px;
+            border-bottom: 1px solid #f0f2f5;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        .role-admin {
+            background: #ede9fe;
+            color: #6d28d9;
+        }
+
+        .role-user {
+            background: #f2f4f7;
+            color: #475467;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #98a2b3;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1100px) {
+
+            .stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .container {
+                padding: 25px 15px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .admin-name {
+                display: none;
+            }
+
+        }
+
+        @media (max-width: 450px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+        }
+        /* =========================
+   ACTION BUTTONS
+========================= */
+
+.action-edit,
+.action-delete {
+    border: none;
+    padding: 7px 11px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.action-edit {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.action-delete {
+    background: #fef2f2;
+    color: #dc2626;
+    margin-left: 5px;
+}
+
+.action-edit:hover {
+    background: #e0e7ff;
+}
+
+.action-delete:hover {
+    background: #fee2e2;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.55);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 520px;
+    background: white;
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 0 25px 70px rgba(15, 23, 42, 0.25);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+    font-size: 21px;
+}
+
+.close-button {
+    border: none;
+    background: #f2f4f7;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+    color: #475467;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #d0d5dd;
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 13px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px #eef2ff;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.cancel-button,
+.save-button {
+    border: none;
+    padding: 11px 18px;
+    border-radius: 9px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancel-button {
+    background: #f2f4f7;
+    color: #475467;
+}
+
+.save-button {
+    background: #4f46e5;
+    color: white;
+}
+
+.save-button:hover {
+    background: #4338ca;
+}
+
+@media (max-width: 600px) {
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+}
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            PRA<span>YAN</span>
+        </div>
+
+        <div class="admin-label">
+
+            <span class="admin-name">
+                Administrator
+            </span>
+
+            <a href="{{ url_for('logout') }}"
+               class="logout">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="container">
+
+        <!-- HEADER -->
+
+        <div class="heading">
+
+            <h1>
+                Admin Dashboard
+            </h1>
+
+            <p>
+                Welcome back, {{ user_name }}. Manage the PRAYAN platform from here.
+            </p>
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👥
+                </div>
+
+                <div class="stat-title">
+                    TOTAL USERS
+                </div>
+
+                <div class="stat-value">
+                    {{ total_users }}
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🚗
+                </div>
+
+                <div class="stat-title">
+                    TOTAL CARS
+                </div>
+
+                <div class="stat-value">
+                    {{ total_cars }}
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👨‍✈️
+                </div>
+
+                <div class="stat-title">
+                    TOTAL DRIVERS
+                </div>
+
+                <div class="stat-value">
+                    {{ total_drivers }}
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📋
+                </div>
+
+                <div class="stat-title">
+                    TOTAL BOOKINGS
+                </div>
+
+                <div class="stat-value">
+                    {{ total_bookings }}
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    💰
+                </div>
+
+                <div class="stat-title">
+                    CONFIRMED REVENUE
+                </div>
+
+                <div class="stat-value">
+                    ₹{{ "%.2f"|format(total_revenue or 0) }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARS -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <h2>
+                    🚗 Car Management
+                </h2>
+
+               <button class="add-button"
+        type="button"
+        onclick="openAddCarModal()">
+    + Add Car
+</button>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Number</th>
+                            <th>Model</th>
+                            <th>Type</th>
+                            <th>Seats</th>
+                            <th>Price / Day</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                           
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for car in cars %}
+
+                        <tr>
+
+                            <td>{{ car.car_id }}</td>
+
+                            <td>
+                                {{ car.car_number }}
+                            </td>
+
+                            <td>
+                                {{ car.car_model }}
+                            </td>
+
+                            <td>
+                                {{ car.car_type or "-" }}
+                            </td>
+
+                            <td>
+                                {{ car.seats or "-" }}
+                            </td>
+
+                            <td>
+                                ₹{{ "%.2f"|format(car.price_per_day or 0) }}
+                            </td>
+
+                            <td>
+
+                                <span class="status">
+                                    {{ car.availability_status }}
+                                </span>
+
+                            </td>
+                            <td>
+
+                             <button
+        type="button"
+        class="action-edit"
+        onclick='openEditCarModal(
+            {{ car.car_id }},
+            {{ car.car_number|tojson }},
+            {{ car.car_model|tojson }},
+            {{ (car.car_type or "")|tojson }},
+            {{ car.seats or 0 }},
+            {{ car.price_per_day or 0 }},
+            {{ (car.availability_status or "available")|tojson }}
+        )'>
+        Edit
+    </button>
+
+    <form
+        method="POST"
+        action="{{ url_for('admin_delete_car', car_id=car.car_id) }}"
+        style="display:inline;"
+        onsubmit="return confirm('Are you sure you want to delete this car?');">
+
+        <button
+            type="submit"
+            class="action-delete">
+            Delete
+        </button>
+
+    </form>
+
+</td>
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+
+                            <td colspan="8"
+                                class="empty">
+
+                                No cars found.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- DRIVERS -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <h2>
+                    👨‍✈️ Driver Management
+                </h2>
+
+                <button class="add-button"
+                        type="button"
+                        onclick="openAddDriverModal()">
+                       + Add Driver
+                </button>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                           <th>ID</th>
+                           <th>Name</th>
+                           <th>Phone</th>
+                           <th>License</th>
+                           <th>Experience</th>
+                           <th>Price / Day</th>
+                           <th>Status</th>
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for driver in drivers %}
+
+                        <tr>
+
+                            <td>
+                                {{ driver.driver_id }}
+                            </td>
+
+                            <td>
+                                {{ driver.name }}
+                            </td>
+
+                            <td>
+                                {{ driver.phone or "-" }}
+                            </td>
+
+                            <td>
+                                {{ driver.license_number }}
+                            </td>
+
+                            <td>
+                                {{ driver.experience or 0 }} years
+                            </td>
+
+                            <td>
+                                ₹{{ "%.2f"|format(driver.price_per_day or 0) }}
+                            </td>
+
+                            <td>
+
+                                <span class="status">
+                                    {{ driver.availability_status }}
+                                </span>
+
+                            </td>
+                            <td>
+
+    <button
+        type="button"
+        class="action-edit"
+        onclick='openEditDriverModal(
+            {{ driver.driver_id }},
+            {{ driver.name|tojson }},
+            {{ (driver.phone or "")|tojson }},
+            {{ driver.license_number|tojson }},
+            {{ driver.experience or 0 }},
+            {{ driver.price_per_day or 0 }},
+            {{ (driver.availability_status or "available")|tojson }}
+        )'>
+        Edit
+    </button>
+
+    <form
+        method="POST"
+        action="{{ url_for('admin_delete_driver', driver_id=driver.driver_id) }}"
+        style="display:inline;"
+        onsubmit="return confirm('Are you sure you want to delete this driver?');">
+
+        <button
+            type="submit"
+            class="action-delete">
+            Delete
+        </button>
+
+    </form>
+
+</td>
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+
+                            <td colspan="8"
+                                class="empty">
+
+                                No drivers found.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- USERS -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <h2>
+                    👥 Users
+                </h2>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Role</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for user in users %}
+
+                        <tr>
+
+                            <td>
+                                {{ user.user_id }}
+                            </td>
+
+                            <td>
+                                {{ user.name }}
+                            </td>
+
+                            <td>
+                                {{ user.email }}
+                            </td>
+
+                            <td>
+                                {{ user.phone or "-" }}
+                            </td>
+
+                            <td>
+
+                                {% if user.role == "admin" %}
+
+                                <span class="status role-admin">
+                                    Admin
+                                </span>
+
+                                {% else %}
+
+                                <span class="status role-user">
+                                    User
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+
+                            <td colspan="5"
+                                class="empty">
+
+                                No users found.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- BOOKINGS -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <h2>
+                    📋 Recent Bookings
+                </h2>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Route</th>
+                            <th>Service</th>
+                            <th>Car</th>
+                            <th>Driver</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for booking in bookings %}
+
+                        <tr>
+
+                            <td>
+                                #{{ booking.booking_id }}
+                            </td>
+
+                            <td>
+                                {{ booking.user_name or "-" }}
+                            </td>
+
+                            <td>
+                                {{ booking.pickup_location }}
+                                →
+                                {{ booking.destination }}
+                            </td>
+
+                            <td>
+                                {{ booking.service_type }}
+                            </td>
+
+                            <td>
+                                {{ booking.car_model or "-" }}
+                            </td>
+
+                            <td>
+                                {{ booking.driver_name or "-" }}
+                            </td>
+
+                            <td>
+                                ₹{{ "%.2f"|format(booking.total_price or 0) }}
+                            </td>
+
+                            <td>
+
+                                <span class="status">
+                                    {{ booking.booking_status }}
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+
+                            <td colspan="8"
+                                class="empty">
+
+                                No bookings found.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+<!-- =========================
+     ADD CAR MODAL
+========================= -->
+
+<div id="addCarModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Add New Car</h2>
+
+            <button
+                type="button"
+                class="close-button"
+                onclick="closeAddCarModal()">
+                &times;
+            </button>
+
+        </div>
+
+        <form
+            method="POST"
+            action="{{ url_for('admin_add_car') }}">
+
+            <div class="form-group">
+
+                <label>Car Number</label>
+
+                <input
+                    type="text"
+                    name="car_number"
+                    placeholder="MH-27-AB-1234"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Car Model</label>
+
+                <input
+                    type="text"
+                    name="car_model"
+                    placeholder="Maruti Swift"
+                    required>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>Car Type</label>
+
+                    <input
+                        type="text"
+                        name="car_type"
+                        placeholder="SUV">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Seats</label>
+
+                    <input
+                        type="number"
+                        name="seats"
+                        min="1"
+                        placeholder="5"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>Price Per Day</label>
+
+                    <input
+                        type="number"
+                        name="price_per_day"
+                        min="0"
+                        step="0.01"
+                        placeholder="1200"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Availability</label>
+
+                    <select name="availability_status">
+
+                        <option value="available">
+                            Available
+                        </option>
+
+                        <option value="unavailable">
+                            Unavailable
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    onclick="closeAddCarModal()">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-button">
+                    Add Car
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     EDIT CAR MODAL
+========================= -->
+
+<div id="editCarModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Edit Car</h2>
+
+            <button
+                type="button"
+                class="close-button"
+                onclick="closeEditCarModal()">
+                &times;
+            </button>
+
+        </div>
+
+
+        <form
+            id="editCarForm"
+            method="POST">
+
+            <div class="form-group">
+
+                <label>Car Number</label>
+
+                <input
+                    type="text"
+                    id="edit_car_number"
+                    name="car_number"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Car Model</label>
+
+                <input
+                    type="text"
+                    id="edit_car_model"
+                    name="car_model"
+                    required>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>Car Type</label>
+
+                    <input
+                        type="text"
+                        id="edit_car_type"
+                        name="car_type">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Seats</label>
+
+                    <input
+                        type="number"
+                        id="edit_seats"
+                        name="seats"
+                        min="1"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>Price Per Day</label>
+
+                    <input
+                        type="number"
+                        id="edit_price_per_day"
+                        name="price_per_day"
+                        min="0"
+                        step="0.01"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Availability</label>
+
+                    <select
+                        id="edit_availability_status"
+                        name="availability_status">
+
+                        <option value="available">
+                            Available
+                        </option>
+
+                        <option value="unavailable">
+                            Unavailable
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    onclick="closeEditCarModal()">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-button">
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* =========================
+       ADD CAR
+    ========================= */
+
+    function openAddCarModal() {
+
+        document
+            .getElementById("addCarModal")
+            .classList.add("show");
+
+    }
+
+
+    function closeAddCarModal() {
+
+        document
+            .getElementById("addCarModal")
+            .classList.remove("show");
+
+    }
+
+
+    /* =========================
+       EDIT CAR
+    ========================= */
+
+    function openEditCarModal(
+        carId,
+        carNumber,
+        carModel,
+        carType,
+        seats,
+        price,
+        status
+    ) {
+
+        document.getElementById(
+            "edit_car_number"
+        ).value = carNumber;
+
+        document.getElementById(
+            "edit_car_model"
+        ).value = carModel;
+
+        document.getElementById(
+            "edit_car_type"
+        ).value = carType;
+
+        document.getElementById(
+            "edit_seats"
+        ).value = seats;
+
+        document.getElementById(
+            "edit_price_per_day"
+        ).value = price;
+
+        document.getElementById(
+            "edit_availability_status"
+        ).value = status;
+
+
+        document.getElementById(
+            "editCarForm"
+        ).action =
+            "/admin/car/edit/" + carId;
+
+
+        document
+            .getElementById("editCarModal")
+            .classList.add("show");
+
+    }
+
+
+    function closeEditCarModal() {
+
+        document
+            .getElementById("editCarModal")
+            .classList.remove("show");
+
+    }
+
+
+    /* =========================
+       CLOSE WHEN CLICKING OUTSIDE
+    ========================= */
+
+    window.addEventListener(
+        "click",
+        function(event) {
+
+            const addModal =
+                document.getElementById("addCarModal");
+
+            const editModal =
+                document.getElementById("editCarModal");
+
+            if (event.target === addModal) {
+                closeAddCarModal();
+            }
+
+            if (event.target === editModal) {
+                closeEditCarModal();
+            }
+
+        }
+    );
+
+</script>
+<!-- =========================
+     ADD DRIVER MODAL
+========================= -->
+
+<div id="addDriverModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Add New Driver</h2>
+
+            <button
+                type="button"
+                class="close-button"
+                onclick="closeAddDriverModal()">
+                &times;
+            </button>
+
+        </div>
+
+        <form
+            method="POST"
+            action="{{ url_for('admin_add_driver') }}">
+
+            <div class="form-group">
+
+                <label>Driver Name</label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Enter driver name"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Phone</label>
+
+                <input
+                    type="text"
+                    name="phone"
+                    placeholder="Enter phone number">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>License Number</label>
+
+                <input
+                    type="text"
+                    name="license_number"
+                    placeholder="Enter license number"
+                    required>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>Experience (Years)</label>
+
+                    <input
+                        type="number"
+                        name="experience"
+                        min="0"
+                        placeholder="5"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Price Per Day</label>
+
+                    <input
+                        type="number"
+                        name="price_per_day"
+                        min="0"
+                        step="0.01"
+                        placeholder="1000"
+                        required>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Availability</label>
+
+                <select name="availability_status">
+
+                    <option value="available">
+                        Available
+                    </option>
+
+                    <option value="unavailable">
+                        Unavailable
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    onclick="closeAddDriverModal()">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-button">
+                    Add Driver
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     EDIT DRIVER MODAL
+========================= -->
+
+<div id="editDriverModal" class="modal">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h2>Edit Driver</h2>
+
+            <button
+                type="button"
+                class="close-button"
+                onclick="closeEditDriverModal()">
+                &times;
+            </button>
+
+        </div>
+
+        <form
+            id="editDriverForm"
+            method="POST">
+
+            <div class="form-group">
+
+                <label>Driver Name</label>
+
+                <input
+                    type="text"
+                    id="edit_driver_name"
+                    name="name"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Phone</label>
+
+                <input
+                    type="text"
+                    id="edit_driver_phone"
+                    name="phone">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>License Number</label>
+
+                <input
+                    type="text"
+                    id="edit_driver_license"
+                    name="license_number"
+                    required>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>Experience (Years)</label>
+
+                    <input
+                        type="number"
+                        id="edit_driver_experience"
+                        name="experience"
+                        min="0"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Price Per Day</label>
+
+                    <input
+                        type="number"
+                        id="edit_driver_price"
+                        name="price_per_day"
+                        min="0"
+                        step="0.01"
+                        required>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Availability</label>
+
+                <select
+                    id="edit_driver_status"
+                    name="availability_status">
+
+                    <option value="available">
+                        Available
+                    </option>
+
+                    <option value="unavailable">
+                        Unavailable
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="cancel-button"
+                    onclick="closeEditDriverModal()">
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-button">
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+<script>
+
+    /* =========================
+       ADD DRIVER
+    ========================= */
+
+    function openAddDriverModal() {
+
+        document
+            .getElementById("addDriverModal")
+            .classList.add("show");
+
+    }
+
+
+    function closeAddDriverModal() {
+
+        document
+            .getElementById("addDriverModal")
+            .classList.remove("show");
+
+    }
+
+
+    /* =========================
+       EDIT DRIVER
+    ========================= */
+
+    function openEditDriverModal(
+        driverId,
+        name,
+        phone,
+        licenseNumber,
+        experience,
+        price,
+        status
+    ) {
+
+        document.getElementById(
+            "edit_driver_name"
+        ).value = name;
+
+        document.getElementById(
+            "edit_driver_phone"
+        ).value = phone;
+
+        document.getElementById(
+            "edit_driver_license"
+        ).value = licenseNumber;
+
+        document.getElementById(
+            "edit_driver_experience"
+        ).value = experience;
+
+        document.getElementById(
+            "edit_driver_price"
+        ).value = price;
+
+        document.getElementById(
+            "edit_driver_status"
+        ).value = status;
+
+        document.getElementById(
+            "editDriverForm"
+        ).action =
+            "/admin/driver/edit/" + driverId;
+
+        document
+            .getElementById("editDriverModal")
+            .classList.add("show");
+
+    }
+
+
+    function closeEditDriverModal() {
+
+        document
+            .getElementById("editDriverModal")
+            .classList.remove("show");
+
+    }
+
+
+    /* =========================
+       CLOSE WHEN CLICKING OUTSIDE
+    ========================= */
+
+    window.addEventListener(
+        "click",
+        function(event) {
+
+            const addModal =
+                document.getElementById(
+                    "addDriverModal"
+                );
+
+            const editModal =
+                document.getElementById(
+                    "editDriverModal"
+                );
+
+            if (event.target === addModal) {
+
+                closeAddDriverModal();
+
+            }
+
+            if (event.target === editModal) {
+
+                closeEditDriverModal();
+
+            }
+
+        }
+    );
+
+</script>
+</body>
+
+</html>
