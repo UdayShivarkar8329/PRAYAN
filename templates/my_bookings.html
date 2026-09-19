@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PRAYAN - My Bookings</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", Arial, sans-serif;
+            background: #f6f7fb;
+            color: #111827;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 72px;
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #111827;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4b5563;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        .nav-login {
+            background: #4f46e5;
+            color: white !important;
+            padding: 10px 17px;
+            border-radius: 10px;
+        }
+
+        .nav-login:hover {
+            background: #3730a3;
+        }
+
+        /* PAGE */
+
+        .page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 55px 24px 80px;
+        }
+
+        .page-header {
+            margin-bottom: 35px;
+        }
+
+        .eyebrow {
+            color: #4f46e5;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .page-header h1 {
+            font-size: 38px;
+            letter-spacing: -1.5px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #6b7280;
+            font-size: 15px;
+        }
+
+        /* FLASH */
+
+        .flash {
+            background: #eef2ff;
+            color: #3730a3;
+            border: 1px solid #c7d2fe;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 22px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* BOOKING CARD */
+
+        .booking {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 22px;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+            transition: 0.2s;
+        }
+
+        .booking:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+        }
+
+        .booking-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eef0f4;
+            margin-bottom: 20px;
+        }
+
+        .booking-id {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: #ecfdf5;
+            color: #047857;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: capitalize;
+        }
+
+        .status.cancelled {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        /* ROUTE */
+
+        .route {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 18px;
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 22px;
+        }
+
+        .location-label {
+            color: #9ca3af;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .location-value {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .arrow {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #eef2ff;
+            color: #4f46e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        /* DETAILS */
+
+        .details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .detail {
+            background: #fafafa;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .detail-label {
+            color: #9ca3af;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .detail-value {
+            color: #111827;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .price {
+            color: #4f46e5;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        /* ACTIONS */
+
+        .booking-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid #eef0f4;
+        }
+
+        .cancel {
+            display: inline-block;
+            text-decoration: none;
+            background: #fff;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .cancel:hover {
+            background: #fef2f2;
+            border-color: #fca5a5;
+        }
+
+        /* EMPTY STATE */
+
+        .empty {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 70px 25px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.04);
+        }
+
+        .empty-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            background: #eef2ff;
+            color: #4f46e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+        }
+
+        .empty h2 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .empty p {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+        .primary-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #4f46e5;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .primary-btn:hover {
+            background: #3730a3;
+            transform: translateY(-1px);
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 12px;
+            padding: 25px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a:not(.nav-login) {
+                display: none;
+            }
+
+            .page {
+                padding: 35px 16px 60px;
+            }
+
+            .page-header h1 {
+                font-size: 30px;
+            }
+
+            .booking {
+                padding: 18px;
+            }
+
+            .route {
+                grid-template-columns: 1fr;
+            }
+
+            .arrow {
+                margin: auto;
+                transform: rotate(90deg);
+            }
+
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .booking-actions {
+                justify-content: stretch;
+            }
+
+            .cancel {
+                text-align: center;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <a href="{{ url_for('home') }}" class="logo">
+        PRA<span>YAN</span>
+    </a>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('cars') }}">
+            Cars
+        </a>
+
+        <a href="{{ url_for('booking') }}">
+            New Booking
+        </a>
+
+        <a href="{{ url_for('my_bookings') }}">
+            My Bookings
+        </a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}" class="nav-login">
+            Logout
+        </a>
+        
+    </div>
+
+</nav>
+
+
+<!-- MAIN -->
+
+<main class="page">
+
+    <div class="page-header">
+
+        <div class="eyebrow">
+            Your Trips
+        </div>
+
+        <h1>
+            My Bookings
+        </h1>
+
+        <p>
+            View and manage all your PRAYAN bookings in one place.
+        </p>
+
+    </div>
+
+
+    <!-- FLASH MESSAGES -->
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="flash">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- BOOKINGS -->
+
+    {% if bookings %}
+
+        {% for booking in bookings %}
+
+            <div class="booking">
+
+                <div class="booking-top">
+
+                    <div class="booking-id">
+                        Booking #{{ booking.booking_id }}
+                    </div>
+
+                    <div class="status {% if booking.booking_status == 'cancelled' %}cancelled{% endif %}">
+                        {{ booking.booking_status }}
+                    </div>
+
+                </div>
+
+
+                <!-- ROUTE -->
+
+                <div class="route">
+
+                    <div>
+                        <div class="location-label">
+                            Pickup
+                        </div>
+
+                        <div class="location-value">
+                            {{ booking.pickup_location }}
+                        </div>
+                    </div>
+
+
+                    <div class="arrow">
+                        →
+                    </div>
+
+
+                    <div>
+                        <div class="location-label">
+                            Destination
+                        </div>
+
+                        <div class="location-value">
+                            {{ booking.destination }}
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- DETAILS -->
+
+                <div class="details">
+
+                    <div class="detail">
+
+                        <div class="detail-label">
+                            Service
+                        </div>
+
+                        <div class="detail-value">
+                            {{ booking.service_type }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <div class="detail-label">
+                            Start Date
+                        </div>
+
+                        <div class="detail-value">
+                            {{ booking.start_date }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="detail">
+
+                        <div class="detail-label">
+                            End Date
+                        </div>
+
+                        <div class="detail-value">
+                            {{ booking.end_date }}
+                        </div>
+
+                    </div>
+
+
+                    {% if booking.car_model %}
+
+                        <div class="detail">
+
+                            <div class="detail-label">
+                                Car
+                            </div>
+
+                            <div class="detail-value">
+                                {{ booking.car_model }}
+
+                                {% if booking.car_number %}
+                                    ({{ booking.car_number }})
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if booking.driver_name %}
+
+                        <div class="detail">
+
+                            <div class="detail-label">
+                                Driver
+                            </div>
+
+                            <div class="detail-value">
+                                {{ booking.driver_name }}
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <div class="detail">
+
+                        <div class="detail-label">
+                            Total Price
+                        </div>
+
+                        <div class="price">
+                            ₹{{ booking.total_price }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTION -->
+
+                {% if booking.booking_status == "confirmed" %}
+
+                    <div class="booking-actions">
+
+                        <a
+                            class="cancel"
+                            href="{{ url_for('cancel_booking', booking_id=booking.booking_id) }}"
+                            onclick="return confirm('Are you sure you want to cancel this booking?');"
+                        >
+                            Cancel Booking
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <!-- EMPTY -->
+
+        <div class="empty">
+
+            <div class="empty-icon">
+                🚗
+            </div>
+
+            <h2>
+                No bookings yet
+            </h2>
+
+            <p>
+                Your upcoming PRAYAN trips will appear here.
+            </p>
+
+            <a
+                href="{{ url_for('booking') }}"
+                class="primary-btn"
+            >
+                Create Your First Booking →
+            </a>
+
+        </div>
+
+    {% endif %}
+
+</main>
+
+
+<footer>
+    © 2026 PRAYAN · Smart Car & Driver Rental
+</footer>
+
+</body>
+</html>

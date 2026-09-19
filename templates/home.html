@@ -5,204 +5,1096 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PRAYAN - Route</title>
+    <title>PRAYAN | Smart Travel</title>
 
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Leaflet -->
     <link
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     >
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background: #f5f5f5;
-        }
 
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .route-box {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 800px;
-            margin-bottom: 20px;
-        }
-
-        input {
-            width: 70%;
-            padding: 12px;
-            font-size: 16px;
+        * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        button {
-            padding: 12px 20px;
-            font-size: 16px;
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 76px;
+            background: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid #e7ebf2;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #172033;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #596273;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        .login-btn {
+            padding: 10px 18px;
+            border-radius: 10px;
+            background: #172033;
+            color: white !important;
+        }
+
+        .login-btn:hover {
+            background: #4f46e5;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 570px;
+
+            padding: 75px 7% 70px;
+
+            display: grid;
+            grid-template-columns: 1fr 0.9fr;
+            gap: 70px;
+
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(79, 70, 229, 0.13),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    #f8faff,
+                    #eef2ff
+                );
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            background: #e7e9ff;
+            color: #4f46e5;
+
+            border-radius: 30px;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            margin-bottom: 22px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 5vw, 70px);
+            line-height: 1.04;
+            letter-spacing: -2px;
+            margin-bottom: 22px;
+        }
+
+        .hero h1 span {
+            color: #4f46e5;
+        }
+
+        .hero-description {
+            color: #667085;
+            font-size: 17px;
+            line-height: 1.7;
+            max-width: 570px;
+            margin-bottom: 32px;
+        }
+
+
+        /* =========================
+           JOURNEY CARD
+        ========================= */
+
+        .journey-card {
+            background: white;
+
+            padding: 28px;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 20px 50px rgba(31, 41, 55, 0.10);
+
+            border: 1px solid #e9edf5;
+        }
+
+        .journey-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-label {
+            display: block;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            color: #667085;
+
+            margin-bottom: 8px;
+
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .location-input {
+            width: 100%;
+
+            padding: 15px 16px;
+
+            border: 1px solid #dce1ea;
+            border-radius: 12px;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: 0.2s;
+
+            background: #fafbfc;
+        }
+
+        .location-input:focus {
+            border-color: #6366f1;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 4px rgba(99, 102, 241, 0.10);
+        }
+
+        .route-button {
+            width: 100%;
+
+            margin-top: 8px;
+
+            padding: 15px;
+
+            border: none;
+            border-radius: 12px;
+
+            background: #4f46e5;
+            color: white;
+
+            font-size: 14px;
+            font-weight: 700;
+
             cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        .route-button:hover {
+            background: #4338ca;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 10px 20px rgba(79, 70, 229, 0.25);
+        }
+
+
+        /* =========================
+           HERO SIDE
+        ========================= */
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .visual-card {
+            width: 100%;
+            max-width: 460px;
+
+            min-height: 390px;
+
+            border-radius: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #1b2440,
+                    #303c68
+                );
+
+            padding: 32px;
+
+            color: white;
+
+            box-shadow:
+                0 25px 60px rgba(24, 34, 63, 0.25);
+
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 220px;
+            height: 220px;
+
+            border-radius: 50%;
+
+            background: rgba(99, 102, 241, 0.25);
+
+            top: -70px;
+            right: -60px;
+        }
+
+        .visual-card h2 {
+            position: relative;
+
+            font-size: 26px;
+
+            margin-bottom: 10px;
+        }
+
+        .visual-card p {
+            position: relative;
+
+            color: #c7cee0;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+        .journey-points {
+            position: relative;
+
+            margin-top: 45px;
+        }
+
+        .journey-point {
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 28px;
+        }
+
+        .point-icon {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(255, 255, 255, 0.12);
+
+            font-size: 18px;
+        }
+
+        .journey-point strong {
+            display: block;
+
+            font-size: 14px;
+
+            margin-bottom: 4px;
+        }
+
+        .journey-point span {
+            color: #aeb8d0;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           ROUTE SECTION
+        ========================= */
+
+        .route-section {
+            padding: 75px 7% 90px;
+
+            background: #ffffff;
+        }
+
+        .section-heading {
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+        .section-heading h2 {
+            font-size: 32px;
+
+            margin-bottom: 8px;
+        }
+
+        .section-heading p {
+            color: #667085;
+
+            font-size: 14px;
         }
 
         #map {
-            height: 500px;
             width: 100%;
-            border-radius: 10px;
+            height: 500px;
+
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            border: 1px solid #e4e8f0;
+
+            box-shadow:
+                0 15px 40px rgba(31, 41, 55, 0.08);
         }
 
+
+        /* =========================
+           RESULT
+        ========================= */
+
         #result {
-            margin-top: 15px;
-            font-size: 18px;
+            margin-top: 22px;
+
+            padding: 20px;
+
+            background: #f7f8ff;
+
+            border: 1px solid #e3e5ff;
+
+            border-radius: 15px;
+
+            color: #374151;
+
+            font-size: 15px;
+
+            line-height: 1.8;
+
+            display: none;
         }
+
+        #result strong {
+            color: #4f46e5;
+        }
+
+        .booking-wrapper {
+            text-align: center;
+        }
+
+        #bookingButton {
+            display: none;
+
+            margin-top: 20px;
+
+            padding: 14px 28px;
+
+            border: none;
+            border-radius: 12px;
+
+            background: #172033;
+            color: white;
+
+            font-size: 14px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        #bookingButton:hover {
+            background: #4f46e5;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            padding: 30px 7%;
+
+            background: #111827;
+
+            color: #9ca3af;
+
+            text-align: center;
+
+            font-size: 13px;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .hero {
+                grid-template-columns: 1fr;
+
+                gap: 45px;
+
+                padding-top: 55px;
+            }
+
+            .hero-visual {
+                justify-content: flex-start;
+            }
+
+            .nav-links {
+                gap: 14px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 0 5%;
+
+                height: auto;
+
+                min-height: 70px;
+            }
+
+            .nav-links a:not(.login-btn) {
+                display: none;
+            }
+
+            .hero {
+                padding: 45px 5% 60px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .journey-card {
+                padding: 22px;
+            }
+
+            .visual-card {
+                min-height: 330px;
+            }
+
+            .route-section {
+                padding: 55px 5% 70px;
+            }
+
+            #map {
+                height: 400px;
+            }
+
+        }
+
     </style>
 </head>
 
+
 <body>
 
-    <h1>PRAYAN</h1>
 
-    <div class="route-box">
+    <!-- =========================
+         NAVIGATION
+    ========================= -->
 
-        <h2>Plan Your Journey</h2>
+    <nav class="navbar">
 
-        <p><strong>Pickup:</strong> Amravati</p>
+        <div class="logo">
+            PRA<span>YAN</span>
+        </div>
 
-        <input
-            type="text"
-            id="destination"
-            placeholder="Enter destination (e.g. Pune)"
-        >
+        <div class="nav-links">
 
-        <button onclick="getRoute()">Show Route</button>
+            <a href="/">Home</a>
+
+            <a href="/cars">Services</a>
+
+            <a href="/my-bookings">My Bookings</a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="/login" class="login-btn">
+                Login
+            </a>
+            
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="badge">
+                SMART TRAVEL • MAHARASHTRA
+            </div>
+
+            <h1>
+                Your journey.<br>
+                <span>Your way.</span>
+            </h1>
+
+            <p class="hero-description">
+                Book cars, hire drivers, and plan your journey
+                across Maharashtra with PRAYAN.
+            </p>
+
+
+            <!-- Journey Form -->
+
+            <div class="journey-card">
+
+                <div class="journey-title">
+                    Plan your journey
+                </div>
+
+
+                <div class="input-group">
+
+                    <label class="input-label">
+                        Pickup Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="pickup_location"
+                        class="location-input"
+                        placeholder="e.g. Amravati"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label class="input-label">
+                        Destination
+                    </label>
+
+                    <input
+                        type="text"
+                        id="destination"
+                        class="location-input"
+                        placeholder="e.g. Pune"
+                    >
+
+                </div>
+
+
+                <button
+                    class="route-button"
+                    onclick="getRoute()"
+                >
+                    Find My Route →
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Visual -->
+
+        <div class="hero-visual">
+
+            <div class="visual-card">
+
+                <h2>
+                    Travel made simple.
+                </h2>
+
+                <p>
+                    From your pickup point to your destination,
+                    PRAYAN helps you plan the complete journey.
+                </p>
+
+
+                <div class="journey-points">
+
+                    <div class="journey-point">
+
+                        <div class="point-icon">
+                            📍
+                        </div>
+
+                        <div>
+                            <strong>
+                                Choose your locations
+                            </strong>
+
+                            <span>
+                                Start anywhere in Maharashtra
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="journey-point">
+
+                        <div class="point-icon">
+                            🚗
+                        </div>
+
+                        <div>
+                            <strong>
+                                Select your ride
+                            </strong>
+
+                            <span>
+                                Car, driver, or both
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="journey-point">
+
+                        <div class="point-icon">
+                            ✓
+                        </div>
+
+                        <div>
+                            <strong>
+                                Confirm your booking
+                            </strong>
+
+                            <span>
+                                Your journey, organized
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ROUTE SECTION
+    ========================= -->
+
+    <section class="route-section">
+
+        <div class="section-heading">
+
+            <h2>
+                Your Route
+            </h2>
+
+            <p>
+                Enter your pickup and destination to see your journey.
+            </p>
+
+        </div>
+
+
+        <div id="map"></div>
+
 
         <div id="result"></div>
-        <button id="bookingButton" onclick="goToBooking()" style="display: none; margin-top: 15px;">
-    Continue to Booking
-</button>
 
-    </div>
 
-    <div id="map"></div>
+        <div class="booking-wrapper">
 
+            <button
+                id="bookingButton"
+                onclick="goToBooking()"
+            >
+                Continue to Booking →
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <strong>PRAYAN</strong>
+        — Smart Car & Driver Rental Platform
+
+    </footer>
+
+
+    <!-- Leaflet -->
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+
     <script>
 
-        // Create map
-        const map = L.map("map").setView([20.9287, 77.7565], 7);
+        /* =========================
+           MAP INITIALIZATION
+        ========================= */
 
-        // OpenStreetMap tiles
+        const map = L.map("map").setView(
+            [20.9287, 77.7565],
+            7
+        );
+
+
         L.tileLayer(
             "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             {
-                attribution: "&copy; OpenStreetMap contributors"
+                attribution:
+                    "&copy; OpenStreetMap contributors"
             }
         ).addTo(map);
 
 
-        // Get route from Flask
+        let currentRouteLayer = null;
+
+
+        /* =========================
+           FIND ROUTE
+        ========================= */
+
         async function getRoute() {
 
-            const destination =
-                document.getElementById("destination").value.trim();
+            const pickup =
+                document
+                    .getElementById("pickup_location")
+                    .value
+                    .trim();
 
-            if (!destination) {
-                alert("Please enter a destination.");
+            const destination =
+                document
+                    .getElementById("destination")
+                    .value
+                    .trim();
+
+
+            if (!pickup) {
+
+                alert(
+                    "Please enter a pickup location."
+                );
+
                 return;
             }
 
-            document.getElementById("result").innerHTML =
-                "Finding route...";
+
+            if (!destination) {
+
+                alert(
+                    "Please enter a destination."
+                );
+
+                return;
+            }
+
+
+            if (
+                pickup.toLowerCase() ===
+                destination.toLowerCase()
+            ) {
+
+                alert(
+                    "Pickup and destination cannot be the same."
+                );
+
+                return;
+            }
+
+
+            const result =
+                document.getElementById("result");
+
+            const bookingButton =
+                document.getElementById("bookingButton");
+
+
+            result.style.display = "block";
+
+            result.innerHTML =
+                "Finding your route...";
+
+
+            bookingButton.style.display = "none";
+
 
             try {
 
                 const response = await fetch(
-                    `/route?destination=${encodeURIComponent(destination)}`
+                    `/route?pickup_location=${encodeURIComponent(pickup)}&destination=${encodeURIComponent(destination)}`
                 );
 
-                const data = await response.json();
+
+                const data =
+                    await response.json();
+
 
                 console.log(data);
 
 
                 if (data.error) {
 
-                    document.getElementById("result").innerHTML =
-                        data.error;
+                    result.innerHTML =
+                        `<strong>Unable to find route:</strong><br>${data.error}`;
 
                     return;
                 }
 
 
-                // Show distance and duration
-                document.getElementById("result").innerHTML =
-                    `<strong>Distance:</strong> ${data.distance} km
-                    <br>
-                    <strong>Duration:</strong> ${Math.round(data.duration)} minutes`;
-                    document.getElementById("bookingButton").style.display = "inline-block";
+                /* =========================
+                   ROUTE INFORMATION
+                ========================= */
+
+                result.innerHTML = `
+
+                    <strong>Distance</strong>
+                    ${data.distance} km
+
+                    &nbsp;&nbsp; • &nbsp;&nbsp;
+
+                    <strong>Duration</strong>
+                    ${Math.round(data.duration)} minutes
+
+                `;
 
 
-                // Draw route
-                const routeLayer = L.geoJSON(data.route, {
-                    style: {
-                        weight: 5
-                    }
-                }).addTo(map);
+                /* =========================
+                   REMOVE OLD ROUTE
+                ========================= */
+
+                if (currentRouteLayer) {
+
+                    map.removeLayer(
+                        currentRouteLayer
+                    );
+
+                }
 
 
-                // Get destination from final route coordinate
-                const coordinates = data.route.coordinates;
+                /* =========================
+                   DRAW ROUTE
+                ========================= */
 
-                const lastCoordinate =
-                    coordinates[coordinates.length - 1];
+                currentRouteLayer =
+                    L.geoJSON(
+                        data.route,
+                        {
+                            style: {
+                                weight: 5
+                            }
+                        }
+                    ).addTo(map);
 
 
-                const destinationLatLng = [
-                    lastCoordinate[1],
-                    lastCoordinate[0]
+                const coordinates =
+                    data.route.coordinates;
+
+
+                /* Pickup */
+
+                const firstCoordinate =
+                    coordinates[0];
+
+
+                const pickupLatLng = [
+
+                    firstCoordinate[1],
+                    firstCoordinate[0]
+
                 ];
 
 
-                // Pickup marker
-                L.marker([20.9287, 77.7565])
+                /* Destination */
+
+                const lastCoordinate =
+                    coordinates[
+                        coordinates.length - 1
+                    ];
+
+
+                const destinationLatLng = [
+
+                    lastCoordinate[1],
+                    lastCoordinate[0]
+
+                ];
+
+
+                /* Pickup Marker */
+
+                L.marker(pickupLatLng)
                     .addTo(map)
-                    .bindPopup("Pickup: Amravati");
+                    .bindPopup(
+                        `Pickup: ${pickup}`
+                    )
+                    .openPopup();
 
 
-                // Destination marker
+                /* Destination Marker */
+
                 L.marker(destinationLatLng)
                     .addTo(map)
-                    .bindPopup(`Destination: ${data.destination}`);
+                    .bindPopup(
+                        `Destination: ${data.destination}`
+                    );
 
 
-                // Zoom map to route
+                /* Fit route */
+
                 map.fitBounds(
-                    routeLayer.getBounds(),
+                    currentRouteLayer.getBounds(),
                     {
-                        padding: [30, 30]
+                        padding: [40, 40]
                     }
                 );
 
-            } catch (error) {
+
+                /* Show booking button */
+
+                bookingButton.style.display =
+                    "inline-block";
+
+
+                /* Scroll to result */
+
+                document
+                    .getElementById("result")
+                    .scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+            }
+
+
+            catch (error) {
 
                 console.error(error);
 
-                document.getElementById("result").innerHTML =
+                result.innerHTML =
                     "Something went wrong while finding the route.";
 
             }
 
         }
-    function goToBooking() {
 
-    const destination =
-        document.getElementById("destination").value.trim();
 
-    window.location.href =
-        `/booking?destination=${encodeURIComponent(destination)}`;
-}
+        /* =========================
+           CONTINUE TO BOOKING
+        ========================= */
+
+        function goToBooking() {
+
+            const pickup =
+                document
+                    .getElementById("pickup_location")
+                    .value
+                    .trim();
+
+
+            const destination =
+                document
+                    .getElementById("destination")
+                    .value
+                    .trim();
+
+
+            window.location.href =
+                `/booking?pickup_location=${encodeURIComponent(pickup)}&destination=${encodeURIComponent(destination)}`;
+
+        }
+
     </script>
 
 </body>

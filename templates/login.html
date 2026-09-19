@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRAYAN | Login</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: "Inter", sans-serif;
+        background: #f4f7fb;
+        color: #172033;
+        min-height: 100vh;
+    }
+
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    .navbar {
+        height: 76px;
+
+        background: rgba(255, 255, 255, 0.97);
+
+        border-bottom: 1px solid #e7ebf2;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 7%;
+
+        position: sticky;
+        top: 0;
+
+        z-index: 100;
+    }
+
+    .logo {
+        font-size: 27px;
+        font-weight: 800;
+        letter-spacing: 1px;
+    }
+
+    .logo span {
+        color: #4f46e5;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: #596273;
+        font-size: 14px;
+        font-weight: 600;
+        transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+        color: #4f46e5;
+    }
+
+    .home-btn {
+        background: #172033;
+        color: white !important;
+
+        padding: 10px 18px;
+
+        border-radius: 10px;
+    }
+
+    .home-btn:hover {
+        background: #4f46e5;
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .page {
+        min-height: calc(100vh - 76px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 60px 20px;
+
+        background:
+            radial-gradient(
+                circle at 20% 20%,
+                rgba(79, 70, 229, 0.10),
+                transparent 30%
+            ),
+            radial-gradient(
+                circle at 80% 80%,
+                rgba(79, 70, 229, 0.08),
+                transparent 30%
+            ),
+            #f4f7fb;
+    }
+
+
+    /* =========================
+       LOGIN CARD
+    ========================= */
+
+    .login-card {
+        width: 100%;
+        max-width: 440px;
+
+        background: white;
+
+        border: 1px solid #e7ebf2;
+
+        border-radius: 20px;
+
+        padding: 38px;
+
+        box-shadow:
+            0 15px 40px rgba(31, 41, 55, 0.08);
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .login-header {
+        text-align: center;
+
+        margin-bottom: 30px;
+    }
+
+    .badge {
+        display: inline-block;
+
+        padding: 7px 13px;
+
+        background: #e7e9ff;
+
+        color: #4f46e5;
+
+        border-radius: 30px;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        letter-spacing: 0.5px;
+
+        margin-bottom: 15px;
+    }
+
+    .login-header h1 {
+        font-size: 28px;
+
+        letter-spacing: -0.8px;
+
+        margin-bottom: 8px;
+    }
+
+    .login-header p {
+        color: #8a93a3;
+
+        font-size: 13px;
+
+        line-height: 1.6;
+    }
+
+
+    /* =========================
+       FLASH MESSAGES
+    ========================= */
+
+    .flash {
+        background: #fff4e5;
+
+        border: 1px solid #ffd59a;
+
+        color: #8a5200;
+
+        padding: 13px 15px;
+
+        border-radius: 12px;
+
+        margin-bottom: 20px;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+
+        text-align: center;
+    }
+
+
+    /* =========================
+       FORM
+    ========================= */
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        color: #667085;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.4px;
+    }
+
+    input {
+        width: 100%;
+
+        padding: 14px 15px;
+
+        border: 1px solid #dce1ea;
+
+        border-radius: 11px;
+
+        background: #fafbfc;
+
+        color: #172033;
+
+        font-family: inherit;
+
+        font-size: 14px;
+
+        outline: none;
+
+        transition: 0.2s;
+    }
+
+    input:focus {
+        border-color: #6366f1;
+
+        background: white;
+
+        box-shadow:
+            0 0 0 4px rgba(99, 102, 241, 0.10);
+    }
+
+    input::placeholder {
+        color: #a3aab7;
+    }
+
+
+    /* =========================
+       PASSWORD
+    ========================= */
+
+    .password-wrapper {
+        position: relative;
+    }
+
+    .password-wrapper input {
+        padding-right: 50px;
+    }
+
+    .toggle-password {
+        position: absolute;
+
+        right: 14px;
+        top: 50%;
+
+        transform: translateY(-50%);
+
+        border: none;
+
+        background: transparent;
+
+        color: #8a93a3;
+
+        cursor: pointer;
+
+        font-size: 12px;
+
+        font-weight: 600;
+    }
+
+    .toggle-password:hover {
+        color: #4f46e5;
+    }
+
+
+    /* =========================
+       LOGIN BUTTON
+    ========================= */
+
+    .login-submit {
+        width: 100%;
+
+        margin-top: 5px;
+
+        padding: 15px;
+
+        border: none;
+
+        border-radius: 12px;
+
+        background: #4f46e5;
+
+        color: white;
+
+        font-family: inherit;
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+        transition: 0.25s;
+    }
+
+    .login-submit:hover {
+        background: #4338ca;
+
+        transform: translateY(-1px);
+
+        box-shadow:
+            0 10px 20px rgba(79, 70, 229, 0.22);
+    }
+
+
+    /* =========================
+       REGISTER
+    ========================= */
+
+    .register-text {
+        text-align: center;
+
+        margin-top: 25px;
+
+        color: #8a93a3;
+
+        font-size: 13px;
+    }
+
+    .register-text a {
+        color: #4f46e5;
+
+        font-weight: 700;
+
+        text-decoration: none;
+    }
+
+    .register-text a:hover {
+        text-decoration: underline;
+    }
+
+
+    /* =========================
+       SECURITY NOTE
+    ========================= */
+
+    .security-note {
+        margin-top: 22px;
+
+        padding: 13px 14px;
+
+        background: #f8fafc;
+
+        border-radius: 11px;
+
+        color: #667085;
+
+        font-size: 11px;
+
+        line-height: 1.6;
+
+        text-align: center;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+        background: #111827;
+
+        color: #9ca3af;
+
+        text-align: center;
+
+        padding: 25px;
+
+        font-size: 12px;
+    }
+
+    footer strong {
+        color: white;
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 650px) {
+
+        .navbar {
+            padding: 0 5%;
+        }
+
+        .nav-links a:not(.home-btn) {
+            display: none;
+        }
+
+        .page {
+            padding: 40px 15px;
+        }
+
+        .login-card {
+            padding: 30px 22px;
+
+            border-radius: 17px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        PRA<span>YAN</span>
+    </div>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('register') }}">
+            Register
+        </a>
+
+        <a href="{{ url_for('login') }}" class="home-btn">
+            Login
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="page">
+
+    <div class="login-card">
+
+
+        <!-- =========================
+             HEADER
+        ========================= -->
+
+        <div class="login-header">
+
+            <div class="badge">
+                PRAYAN ACCOUNT
+            </div>
+
+            <h1>
+                Welcome Back
+            </h1>
+
+            <p>
+                Login to continue planning your journey.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             FLASH MESSAGES
+        ========================= -->
+
+       {% with messages = get_flashed_messages(with_categories=true) %}
+
+    {% if messages %}
+
+        {% for category, message in messages %}
+
+            {% if category != "admin" %}
+
+                <div class="flash">
+                    {{ message }}
+                </div>
+
+            {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
+
+
+        <!-- =========================
+             LOGIN FORM
+        ========================= -->
+
+        <form method="POST">
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        onclick="togglePassword()"
+                    >
+                        Show
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOGIN -->
+
+            <button
+                type="submit"
+                class="login-submit"
+            >
+                Login →
+            </button>
+
+
+        </form>
+
+
+        <!-- =========================
+             REGISTER LINK
+        ========================= -->
+
+        <p class="register-text">
+
+            Don't have an account?
+
+            <a href="{{ url_for('register') }}">
+                Create an account
+            </a>
+
+        </p>
+        <div style="margin: 25px 0; display: flex; align-items: center; gap: 12px;">
+    <div style="flex: 1; height: 1px; background: #e7ebf2;"></div>
+    <span style="color: #98a2b3; font-size: 13px;">OR</span>
+    <div style="flex: 1; height: 1px; background: #e7ebf2;"></div>
+</div>
+
+<a href="{{ url_for('admin_login') }}"
+style="
+    display: block;
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #4f46e5;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #4f46e5;
+    font-size: 14px;
+    font-weight: 600;
+    background: #ffffff;
+    transition: 0.2s;
+"
+onmouseover="this.style.background='#eef2ff'"
+onmouseout="this.style.background='#ffffff'">
+🔐 Login as Administrator </a>
+
+
+        <!-- =========================
+             SECURITY
+        ========================= -->
+
+        <div class="security-note">
+
+            🔐 Your account information is securely handled
+            by PRAYAN.
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <strong>PRAYAN</strong>
+    — Smart Car & Driver Rental Platform
+
+</footer>
+
+
+<!-- =========================
+     PASSWORD SCRIPT
+========================= -->
+
+<script>
+
+    function togglePassword() {
+
+        const password =
+            document.getElementById("password");
+
+        const button =
+            document.querySelector(".toggle-password");
+
+
+        if (password.type === "password") {
+
+            password.type = "text";
+
+            button.textContent = "Hide";
+
+        }
+
+        else {
+
+            password.type = "password";
+
+            button.textContent = "Show";
+
+        }
+
+    }
+
+</script>
+```
+
+</body>
+
+</html>

@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PRAYAN | Drivers</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 76px;
+
+            background: rgba(255, 255, 255, 0.97);
+
+            border-bottom: 1px solid #e7ebf2;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 7%;
+
+            position: sticky;
+            top: 0;
+
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #596273;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        .dashboard-btn {
+            padding: 10px 18px;
+
+            border-radius: 10px;
+
+            background: #172033;
+
+            color: white !important;
+        }
+
+        .dashboard-btn:hover {
+            background: #4f46e5;
+        }
+
+
+        /* =========================
+           PAGE HEADER
+        ========================= */
+
+        .page-header {
+            padding: 55px 7% 45px;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(79, 70, 229, 0.10),
+                    transparent 35%
+                ),
+                #f7f9ff;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 7px 13px;
+
+            background: #e7e9ff;
+
+            color: #4f46e5;
+
+            border-radius: 30px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.5px;
+
+            margin-bottom: 15px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(34px, 4vw, 50px);
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            color: #667085;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+
+            max-width: 650px;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main-container {
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding: 45px 7% 85px;
+        }
+
+
+        /* =========================
+           FLASH MESSAGE
+        ========================= */
+
+        .flash {
+            background: #fff4e5;
+
+            border: 1px solid #ffd59a;
+
+            color: #8a5200;
+
+            padding: 14px 16px;
+
+            border-radius: 12px;
+
+            margin-bottom: 25px;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           DRIVER GRID
+        ========================= */
+
+        .driver-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 22px;
+        }
+
+
+        /* =========================
+           DRIVER CARD
+        ========================= */
+
+        .driver-card {
+            background: white;
+
+            border: 1px solid #e7ebf2;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 12px 35px rgba(31, 41, 55, 0.07);
+
+            transition:
+                transform 0.25s,
+                box-shadow 0.25s;
+        }
+
+        .driver-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 20px 45px rgba(31, 41, 55, 0.12);
+        }
+
+
+        /* =========================
+           DRIVER VISUAL
+        ========================= */
+
+        .driver-visual {
+            height: 180px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1b2440,
+                    #3b4775
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .driver-visual::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: rgba(99, 102, 241, 0.20);
+
+            top: -80px;
+            right: -40px;
+        }
+
+        .driver-icon {
+            font-size: 70px;
+
+            position: relative;
+
+            filter:
+                drop-shadow(
+                    0 10px 10px rgba(0, 0, 0, 0.2)
+                );
+        }
+
+
+        /* =========================
+           CARD CONTENT
+        ========================= */
+
+        .driver-content {
+            padding: 23px;
+        }
+
+        .driver-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 10px;
+
+            margin-bottom: 18px;
+        }
+
+        .driver-name {
+            font-size: 19px;
+
+            font-weight: 700;
+
+            margin-bottom: 6px;
+        }
+
+        .driver-role {
+            color: #8a93a3;
+
+            font-size: 12px;
+        }
+
+        .status {
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            text-transform: capitalize;
+
+            white-space: nowrap;
+
+            background: #e9f9ef;
+
+            color: #16803d;
+        }
+
+
+        /* =========================
+           DRIVER DETAILS
+        ========================= */
+
+        .driver-details {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 10px;
+
+            margin-bottom: 20px;
+        }
+
+        .detail {
+            padding: 12px;
+
+            background: #f7f8fb;
+
+            border-radius: 11px;
+        }
+
+        .detail-label {
+            display: block;
+
+            color: #9299a7;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.4px;
+
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================
+           PRICE
+        ========================= */
+
+        .price-section {
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            border-top: 1px solid #edf0f5;
+
+            padding-top: 18px;
+        }
+
+        .price-label {
+            color: #9299a7;
+
+            font-size: 11px;
+
+            margin-bottom: 4px;
+        }
+
+        .price {
+            font-size: 22px;
+
+            font-weight: 800;
+
+            color: #4f46e5;
+        }
+
+        .price span {
+            font-size: 11px;
+
+            font-weight: 500;
+
+            color: #9299a7;
+        }
+
+
+        /* =========================
+           BOOK BUTTON
+        ========================= */
+
+        .book-btn {
+            text-decoration: none;
+
+            background: #4f46e5;
+
+            color: white;
+
+            padding: 11px 15px;
+
+            border-radius: 10px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+            transition: 0.2s;
+        }
+
+        .book-btn:hover {
+            background: #3730a3;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           EMPTY STATE
+        ========================= */
+
+        .empty-state {
+            background: white;
+
+            border: 1px solid #e7ebf2;
+
+            border-radius: 20px;
+
+            padding: 60px 30px;
+
+            text-align: center;
+        }
+
+        .empty-icon {
+            font-size: 50px;
+
+            margin-bottom: 15px;
+        }
+
+        .empty-state h2 {
+            font-size: 21px;
+
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: #8a93a3;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #111827;
+
+            color: #9ca3af;
+
+            text-align: center;
+
+            padding: 28px;
+
+            font-size: 12px;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .navbar {
+                padding: 0 5%;
+            }
+
+            .nav-links a:not(.dashboard-btn) {
+                display: none;
+            }
+
+            .page-header {
+                padding: 40px 5% 35px;
+            }
+
+            .main-container {
+                padding: 30px 5% 60px;
+            }
+
+            .price-section {
+                align-items: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            PRA<span>YAN</span>
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="{{ url_for('cars') }}">
+                Cars
+            </a>
+
+            <a href="{{ url_for('drivers') }}">
+                Drivers
+            </a>
+
+            <a href="{{ url_for('my_bookings') }}">
+                My Bookings
+            </a>
+
+             
+               
+            </a>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+             <a href="{{ url_for('logout') }}" class="logout">
+            Logout
+        </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         PAGE HEADER
+    ========================= -->
+
+    <section class="page-header">
+
+        <div class="badge">
+            PRAYAN DRIVERS
+        </div>
+
+        <h1>
+            Travel with confidence.
+        </h1>
+
+        <p>
+            Choose an experienced driver for a comfortable
+            and reliable journey.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="main-container">
+
+
+        <!-- Flash Messages -->
+
+        {% with messages = get_flashed_messages() %}
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="flash">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        {% if drivers %}
+
+
+            <div class="driver-grid">
+
+
+                {% for driver in drivers %}
+
+
+                    <div class="driver-card">
+
+
+                        <!-- Driver Visual -->
+
+                        <div class="driver-visual">
+
+                            <div class="driver-icon">
+                                👨‍✈️
+                            </div>
+
+                        </div>
+
+
+                        <!-- Driver Content -->
+
+                        <div class="driver-content">
+
+
+                            <div class="driver-top">
+
+                                <div>
+
+                                    <div class="driver-name">
+                                        {{ driver.name }}
+                                    </div>
+
+                                    <div class="driver-role">
+                                        Professional Driver
+                                    </div>
+
+                                </div>
+
+
+                                <div class="status">
+
+                                    {{ driver.availability_status }}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- Details -->
+
+                            <div class="driver-details">
+
+
+                                <div class="detail">
+
+                                    <span class="detail-label">
+                                        Experience
+                                    </span>
+
+                                    <span class="detail-value">
+                                        {{ driver.experience }} years
+                                    </span>
+
+                                </div>
+
+
+                                <div class="detail">
+
+                                    <span class="detail-label">
+                                        Phone
+                                    </span>
+
+                                    <span class="detail-value">
+                                        {{ driver.phone }}
+                                    </span>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <!-- Price + Booking -->
+
+                            <div class="price-section">
+
+                                <div>
+
+                                    <div class="price-label">
+                                        Driver rate
+                                    </div>
+
+                                    <div class="price">
+
+                                        ₹{{ driver.price_per_day }}
+
+                                        <span>
+                                            / day
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <a
+                                    href="{{ url_for('booking', driver_id=driver.driver_id) }}"
+                                    class="book-btn"
+                                >
+                                    Book this driver →
+                                </a>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    👨‍✈️
+                </div>
+
+                <h2>
+                    No drivers available
+                </h2>
+
+                <p>
+                    There are currently no drivers available
+                    for booking.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <strong>PRAYAN</strong>
+        — Smart Car & Driver Rental Platform
+
+    </footer>
+
+
+</body>
+
+</html>

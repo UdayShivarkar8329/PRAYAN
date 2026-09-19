@@ -1,4 +1,5 @@
 .env
+.venv/
 venv/
 __pycache__/
 *.pyc
@@ -6,3 +7,5 @@ __pycache__/
 test_gemini.py
 test_maps.py
 test_ors.py
+create_admin.py
+update_admin_db.py
