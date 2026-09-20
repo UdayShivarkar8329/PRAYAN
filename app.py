@@ -1,4 +1,5 @@
 import os
+from datetime import datetime, date
 
 from flask import (
     Flask,
@@ -12,7 +13,9 @@ from flask import (
 
 from booking.booking import (
     get_available_cars,
+    get_available_cars_for_dates,
     get_available_drivers,
+    get_available_drivers_for_dates,
     calculate_total_price,
     create_booking
 )
@@ -1334,6 +1337,26 @@ def drivers():
 # BOOKING PAGE
 # -------------------------
 
+def validate_booking_dates(start_date, end_date):
+    try:
+        start = datetime.strptime(start_date, "%Y-%m-%d").date()
+        end = datetime.strptime(end_date, "%Y-%m-%d").date()
+        today = date.today()
+
+        if start < today:
+            return "Start date cannot be in the past."
+
+        if end < today:
+            return "End date cannot be in the past."
+
+        if end < start:
+            return "End date cannot be before the start date."
+
+        return None
+
+    except ValueError:
+        return "Please enter valid booking dates."
+
 @app.route("/booking", methods=["GET", "POST"])
 def booking():
 
@@ -1446,6 +1469,11 @@ def booking():
         flash("Please select both start and end dates.")
 
         return redirect(url_for("booking"))
+    date_error = validate_booking_dates(start_date, end_date)
+
+    if date_error:
+        flash(date_error)
+        return redirect(url_for("booking"))
 
     # -------------------------
     # SERVICE SELECTION
@@ -1496,8 +1524,9 @@ def booking():
     if total_price is None:
 
         flash(
-            "Invalid booking details. "
-            "Please check your dates and selected vehicle/driver."
+            
+            "The selected car or driver is unavailable "
+            "for these dates. Please choose another vehicle, driver, or date."
         )
 
         return redirect(url_for("booking"))
@@ -1644,6 +1673,13 @@ def confirm_booking():
         flash("Please select valid booking dates.")
 
         return redirect(url_for("booking"))
+
+    date_error = validate_booking_dates(start_date, end_date)
+
+    if date_error:
+        flash(date_error)
+        return redirect(url_for("booking"))
+
 
     # -------------------------
     # VALIDATE SELECTIONS
@@ -1913,3 +1949,6 @@ def cancel_booking(booking_id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
