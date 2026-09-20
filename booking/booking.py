@@ -81,8 +81,16 @@ def calculate_total_price(
                     FROM cars
                     WHERE car_id = %s
                     AND availability_status = 'available'
+                    AND car_id NOT IN (
+                        SELECT car_id
+                        FROM bookings
+                        WHERE car_id IS NOT NULL
+                        AND booking_status = 'confirmed'
+                        AND start_date <= %s
+                        AND end_date >= %s
+                    )
                     """,
-                    (car_id,)
+                    (car_id,end_date, start_date)
                 )
 
                 car = cursor.fetchone()
@@ -103,8 +111,16 @@ def calculate_total_price(
                     FROM drivers
                     WHERE driver_id = %s
                     AND availability_status = 'available'
+                    AND driver_id NOT IN (
+                        SELECT driver_id
+                        FROM bookings
+                        WHERE driver_id IS NOT NULL
+                        AND booking_status = 'confirmed'
+                        AND start_date <= %s
+                        AND end_date >= %s
+                    )
                     """,
-                    (driver_id,)
+                    (driver_id,end_date, start_date)
                 )
 
                 driver = cursor.fetchone()
@@ -182,6 +198,58 @@ def create_booking(
 
         connection.rollback()
         raise
+
+    finally:
+        connection.close()
+
+def get_available_cars_for_dates(start_date, end_date):
+    connection = get_connection()
+
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT car_id, car_number, car_model,
+                       car_type, seats, price_per_day
+                FROM cars
+                WHERE availability_status = 'available'
+                AND car_id NOT IN (
+                    SELECT car_id
+                    FROM bookings
+                    WHERE car_id IS NOT NULL
+                    AND booking_status = 'confirmed'
+                    AND start_date <= %s
+                    AND end_date >= %s
+                )
+                ORDER BY car_id
+            """, (end_date, start_date))
+
+            return cursor.fetchall()
+
+    finally:
+        connection.close()
+
+def get_available_drivers_for_dates(start_date, end_date):
+    connection = get_connection()
+
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT driver_id, name, phone,
+                       experience, price_per_day
+                FROM drivers
+                WHERE availability_status = 'available'
+                AND driver_id NOT IN (
+                    SELECT driver_id
+                    FROM bookings
+                    WHERE driver_id IS NOT NULL
+                    AND booking_status = 'confirmed'
+                    AND start_date <= %s
+                    AND end_date >= %s
+                )
+                ORDER BY driver_id
+            """, (end_date, start_date))
+
+            return cursor.fetchall()
 
     finally:
         connection.close()
